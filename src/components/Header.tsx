@@ -44,11 +44,8 @@ export function Header() {
                         <b> Accounts & Lists</b>
                     </p>
                 </Link>
-                <Link to="/order-history" className={styles.order}>
-                    <p>Returns</p>
-                    <p>
-                        <b>& Orders</b>
-                    </p>
+                <Link to="/portfolio" className={styles.order}>
+                    <p><b>Portfolio</b></p>
                 </Link>
             </div>
         </header>

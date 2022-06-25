@@ -74,12 +74,12 @@ export default function SignInPage() {
       <div className={styles.content}>
         <h1 className={styles.title}>Sign In</h1>
         <form onSubmit={handleSubmit(handleOnSubmit)}>
-          <label htmlFor="email" className={styles.label}>
-            E-mail Address
+          <label htmlFor="username" className={styles.label}>
+            Username
             <input
               type="text"
               {...register('username', {
-                required: 'Email is required',
+                required: 'Username is required',
                 // pattern: {
                 //   value:
                 //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,

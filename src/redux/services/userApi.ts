@@ -8,7 +8,7 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     signup: builder.mutation<
       User,
-      { name: string; email: string; password: string }
+      { name: string; username: string; password: string }
     >({
       query: (body) => {
         return {
@@ -31,8 +31,7 @@ export const userApi = createApi({
       User,
       {
         userId: string;
-        name: string;
-        email: string;
+        username: string;
         password: string;
         token: string;
       }

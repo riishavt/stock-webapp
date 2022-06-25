@@ -4,9 +4,9 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignInPage';
 import RegisterPage from './pages/RegisterPage';
-// import ProfilePage from './pages/ProfilePage';
+import ProfilePage from './pages/ProfilePage';
 import { useInitialize } from './hooks/useInitialize';
-// import { Portfolio } from './pages/PortfolioPage';
+import { Portfolio } from './pages/PortfolioPage';
 
 export default function App() {
   useInitialize();
@@ -17,9 +17,9 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          {/* <Route path="/profile" element={<ProfilePage />} /> */}
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/" element={<ProtectedRoute />}>
-            {/* <Route path="/order-history" element={<Portfolio />} /> */}
+            <Route path="/portfolio" element={<Portfolio />} />
           </Route>
         </Route>
       </Routes>

@@ -8,7 +8,7 @@ import styles from './RegisterPage.module.css';
 
 interface Inputs {
   name: string;
-  email: string;
+  username: string;
   password: string;
   confirm: string;
 }
@@ -32,12 +32,12 @@ export default function RegisterPage() {
 
   const handleOnSubmit: SubmitHandler<Inputs> = async ({
     name,
-    email,
+    username,
     password
   }) => {
     await signup({
       name,
-      email,
+      username,
       password
     });
   };
@@ -66,7 +66,7 @@ export default function RegisterPage() {
         <Alert
           type="error"
           title="There was a problem"
-          text="Email address already used"
+          text="Username address already used"
           className={styles.alert}
         />
       )}
@@ -94,23 +94,23 @@ export default function RegisterPage() {
           {errors.name && (
             <span className={styles.error}>{errors.name.message}</span>
           )}
-          <label htmlFor="email" className={styles.label}>
-            E-mail Address
+          <label htmlFor="username" className={styles.label}>
+            Username
             <input
-              type="email"
-              {...register('email', {
-                required: 'Please enter your email',
-                pattern: {
-                  value:
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Please enter a valid email.'
-                }
+              type="text"
+              {...register('username', {
+                required: 'Please enter your username',
+                // pattern: {
+                //   value:
+                //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                //   message: 'Please enter a valid email.'
+                // }
               })}
               className={styles.input}
             />
           </label>
-          {errors.email && (
-            <span className={styles.error}>{errors.email.message}</span>
+          {errors.username && (
+            <span className={styles.error}>{errors.username.message}</span>
           )}
           <label htmlFor="password" className={styles.label}>
             Password

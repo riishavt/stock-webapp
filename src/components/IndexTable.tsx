@@ -5,7 +5,7 @@ interface IndexInterface {
     IndexName: string,
     FullName: string,
     Turnover: string,
-    DailyGain: string,
+    DailyGain: number,
     TotalPositiveGainer: string,
     TotalNegativeGainer: string,
     Pe: string,
@@ -20,7 +20,7 @@ interface IndexInterface {
     YearlyPercentChange: string,
     MacdSignal: string,
     SmaTwo: string,
-    Ltp: string,
+    Ltp: number,
     TotalDividendYield: string,
     Roa: string,
 }
@@ -45,22 +45,34 @@ export const IndexTable = () => {
 
     return (
         <div>{!isLoading ?
-            <table>
-                <tbody>
-                    {
-                        indexData.map(index => (
-                            <tr key={index.IndexName}>
-                                <td>{index.IndexName}</td>
-                                <td>{index.FullName}</td>
-                                <td>{index.Turnover}</td>
-                                <td>{index.DailyGain}</td>
-                                <td>{index.TotalPositiveGainer}</td>
-                                <td>{index.TotalNegativeGainer}</td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+            <div>
+                <div>
+                    <span className="indices-label">
+                        {indexData[9].FullName}{'  '}
+                        <span style={{ backgroundColor: indexData[9].DailyGain > 0 ? 'springgreen' : 'red', padding: '5px', fontWeight: 'bold' }}>{indexData[9].Ltp}</span>{'  '}
+                        <span style={{ color: indexData[9].DailyGain > 0 ? 'springgreen' : 'red' }}>
+                            {indexData[9].Ltp > 0 ? '+' : ''}{indexData[9].Ltp}{'  '}
+                            ({indexData[9].DailyGain > 0 ? '+' : ''}{indexData[9].DailyGain}%)
+                        </span>
+                    </span>
+                </div>
+                <table>
+                    <tbody>
+                        {
+                            indexData.map(index => (
+                                <tr key={index.IndexName}>
+                                    <td>{index.IndexName}</td>
+                                    <td>{index.FullName}</td>
+                                    <td>{index.Turnover}</td>
+                                    <td>{index.DailyGain}</td>
+                                    <td>{index.TotalPositiveGainer}</td>
+                                    <td>{index.TotalNegativeGainer}</td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
             : <p>Loading...</p>}
 
 
