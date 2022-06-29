@@ -20,7 +20,6 @@ export const userSlice = createSlice({
     },
     logout: (state: any, action: PayloadAction<void>) => {
       Storage.remove('user');
-      Storage.remove('shippingDetails');
       state.user = null;
     }
   }

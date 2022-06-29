@@ -17,8 +17,8 @@ export function Header() {
             <div className={styles.content}>
                 <Link to="/">
                     <img
-                        src="../../src/assets/amazon-logo.svg"
-                        alt="E-Commerce App Logo"
+                        // src="../../src/assets/amazon-logo.svg"
+                        alt="Asset Placeholder"
                         className={styles.logo}
                     />
                 </Link>
@@ -38,10 +38,10 @@ export function Header() {
             <div className={styles.buttons}>
                 <Link to="/signin" className={styles.signin}>
                     <p>
-                        Hello, <span>{user ? user.username : 'Sign in'}</span>
+                        <span>{user ? user.username : 'Sign in'}</span>
                     </p>
                     <p>
-                        <b> Accounts & Lists</b>
+                        <b> Accounts</b>
                     </p>
                 </Link>
                 <Link to="/portfolio" className={styles.order}>

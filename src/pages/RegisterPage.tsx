@@ -50,8 +50,8 @@ export default function RegisterPage() {
     <div className={styles.container}>
       <Link to="/">
         <img
-          src="./src/assets/amazon-logo.png"
-          alt="E-Commerce Logo"
+          // src="./src/assets/amazon-logo.png"
+          alt="Asset Placeholder"
           className={styles.logo}
         />
       </Link>

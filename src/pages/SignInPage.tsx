@@ -58,8 +58,8 @@ export default function SignInPage() {
     <div className={styles.container}>
       <Link to="/">
         <img
-          src="./src/assets/amazon-logo.png"
-          alt="E-Commerce Logo"
+          // src="./src/assets/amazon-logo.png"
+          alt="Asset Placeholder"
           className={styles.logo}
         />
       </Link>
@@ -118,10 +118,10 @@ export default function SignInPage() {
         </form>
       </div>
       <div className={styles.footer}>
-        <p>New to Amazon?</p>
+        <p>New?</p>
         <Link to="/register">
           <button disabled={isLoading} className={styles.link}>
-            Create your Amazon account
+            Create your account
           </button>
         </Link>
       </div>
