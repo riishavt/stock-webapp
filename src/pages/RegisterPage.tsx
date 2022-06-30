@@ -7,7 +7,7 @@ import { Alert } from '../components/Alert';
 import styles from './RegisterPage.module.css';
 
 interface Inputs {
-  name: string;
+  // name: string;
   username: string;
   password: string;
   confirm: string;
@@ -31,12 +31,12 @@ export default function RegisterPage() {
   } = useForm<Inputs>();
 
   const handleOnSubmit: SubmitHandler<Inputs> = async ({
-    name,
+    // name,
     username,
     password
   }) => {
     await signup({
-      name,
+      // name,
       username,
       password
     });
@@ -73,7 +73,7 @@ export default function RegisterPage() {
       <div className={styles.content}>
         <h1 className={styles.title}>Create account</h1>
         <form onSubmit={handleSubmit(handleOnSubmit)}>
-          <label htmlFor="name" className={styles.label}>
+          {/* <label htmlFor="name" className={styles.label}>
             Your Name
             <input
               type="text"
@@ -93,7 +93,7 @@ export default function RegisterPage() {
           </label>
           {errors.name && (
             <span className={styles.error}>{errors.name.message}</span>
-          )}
+          )} */}
           <label htmlFor="username" className={styles.label}>
             Username
             <input

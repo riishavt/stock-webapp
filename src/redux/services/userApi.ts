@@ -8,11 +8,11 @@ export const userApi = createApi({
   endpoints: (builder) => ({
     signup: builder.mutation<
       User,
-      { name: string; username: string; password: string }
+      { username: string; password: string }
     >({
       query: (body) => {
         return {
-          url: '/api/user/register',
+          url: '/api/register',
           method: 'POST',
           body
         };

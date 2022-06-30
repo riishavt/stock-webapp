@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Storage } from "../utils/storage";
@@ -81,11 +81,15 @@ export const Portfolio = () => {
                                             </TableCell>
                                         );
                                     })}
+                                    <Button variant="outlined" color="primary" size="small" onClick={() => { alert("to be implemented") }}> + </Button>
+                                    <Button variant="outlined" color="secondary" size="small" onClick={() => { }}> - </Button>
+                                    <Button variant="outlined" color="secondary" size="small" onClick={() => { }}> Delete </Button>
                                 </TableRow>
                             );
                         })}
                 </TableBody>
             </Table>
         </TableContainer>
+        <Button color="primary" size="large" > New </Button>
     </div>
 }
