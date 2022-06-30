@@ -11,14 +11,14 @@ export default function HomePage() {
 
     return (
         <div className={styles.container}>
-            <Grid container >
-                <Grid xs={8}>
+            <Grid container spacing={2} >
+                <Grid item xs={8}>
                     <ChartItem />
                 </Grid>
-                <Grid xs={4}>
+                <Grid item xs={4}>
                     <IndexTable />
                 </Grid>
-                <Grid xs={6}>
+                <Grid item xs={8}>
                     <LiveTable />
                 </Grid>
 

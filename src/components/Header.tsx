@@ -1,15 +1,18 @@
 import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useAppSelector } from '../redux/hooks';
 
 import styles from './Header.module.css';
+import Select from './Select';
 
 export function Header() {
     const { user } = useAppSelector((state) => state.userSlice);
+    const [search, setSearch] = useSearchParams();
 
     const handleOnSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         alert('Not yet implemented');
+        console.log(search);
     };
 
     return (
@@ -22,6 +25,32 @@ export function Header() {
                         className={styles.logo}
                     />
                 </Link>
+
+                {/* <Select
+                    onChange={(e) => {
+                        search.set('sort', e.target.value);
+                        setSearch(search, {
+                            replace: true,
+                        });
+                    }}
+                    label="Sort by"
+                    name="sort"
+                // options={[
+                //     {
+                //         label: 'Name',
+                //         value: 'name',
+                //     },
+                //     {
+                //         label: 'Price High',
+                //         value: 'priceDesc',
+                //     },
+                //     {
+                //         label: 'Price Low',
+                //         value: 'priceAsc',
+                //     },
+                // ]}
+                /> */}
+
                 <form className={styles.form} onSubmit={handleOnSubmit}>
                     <input
                         type="text"
@@ -29,6 +58,12 @@ export function Header() {
                         id="search"
                         placeholder="Search"
                         className={styles.input}
+                        onChange={(e) => {
+                            search.set('sort', e.target.value);
+                            setSearch(search, {
+                                replace: true,
+                            });
+                        }}
                     />
                     <button type="submit" className={styles.search} tabIndex={-1}>
                         <AiOutlineSearch size={20} />

@@ -42,7 +42,7 @@ export const LiveTable = () => {
 
     return (
         <div>{!isLoading ?
-            <TableContainer sx={{ maxHeight: 440, maxWidth: 600 }}>
+            <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead >
                         <TableRow>

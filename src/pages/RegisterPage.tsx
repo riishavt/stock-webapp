@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSignupMutation } from '../redux/services/userApi';
 import { Alert } from '../components/Alert';
@@ -21,6 +21,8 @@ interface Error {
 
 export default function RegisterPage() {
   const [signup, { isLoading, isSuccess, isError }] = useSignupMutation();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const {
     register,
@@ -36,15 +38,19 @@ export default function RegisterPage() {
     password
   }) => {
     await signup({
-      // name,
       username,
       password
     });
   };
 
   useEffect(() => {
-    reset();
-  }, [isError, isSuccess]);
+    // reset();
+    const path = searchParams.get('redirect');
+    if (isSuccess) {
+      navigate(path ?? '/signin');
+      alert('Successfully registered');
+    }
+  }, [isError, isSuccess, searchParams]);
 
   return (
     <div className={styles.container}>
@@ -119,7 +125,7 @@ export default function RegisterPage() {
               {...register('password', {
                 required: 'Please enter your password',
                 minLength: {
-                  value: 6,
+                  value: 3,
                   message: 'Password at least 6 characters'
                 }
               })}
@@ -149,11 +155,11 @@ export default function RegisterPage() {
             <span className={styles.error}>{errors.confirm.message}</span>
           )}
           <button type="submit" className={styles.button}>
-            {isLoading ? 'Loading...' : 'Create your Amazon account'}
+            {isLoading ? 'Loading...' : 'Create your account'}
           </button>
         </form>
         <p className={styles.condition}>
-          By creating an account, you agree to Amazon's{' '}
+          By creating an account, you agree to {' '}
           <span>Conditions of Use</span> and <span>Privacy Notice.</span>
         </p>
       </div>
