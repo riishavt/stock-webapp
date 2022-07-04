@@ -1,6 +1,9 @@
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Add, DeleteOutlined, EditRounded } from "@mui/icons-material";
+import { Button, Dialog, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { render } from "react-dom";
+import { AddPortfolioItem } from "../components/AddPortfolioItem";
 import { Storage } from "../utils/storage";
 
 interface PortfolioInterface {
@@ -25,6 +28,7 @@ export const Portfolio = () => {
 
     const [portfolioData, setPortfolioData] = useState<PortfolioInterface[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState<userStorage>({ token: "", username: "" });
 
 
     const columns = [
@@ -42,6 +46,7 @@ export const Portfolio = () => {
     useEffect(() => {
         const rawToken = Storage.load("user");
         const userToken: userStorage = rawToken ? JSON.parse(rawToken) : "";
+        setCurrentUser(userToken);
         setIsLoading(true);
         axios.get(`http://localhost:8080/api/admin/portfolios/${userToken.username}`, { headers: { Authorization: `Bearer ${userToken.token}` } })
             .then(res => res.data)
@@ -51,6 +56,23 @@ export const Portfolio = () => {
                 setPortfolioData(json);
             })
     }, []);
+
+    const handleEditPortfolioItem = (username: string, scrip: string, type: string, total: number, price: number) => {
+        axios.patch(`http://localhost:8080/api/admin/portfolios/${username}`, { headers: { Authorization: `Bearer ${currentUser.token}` } })
+        return (
+            <div>
+                <Dialog open={true}>
+                    <DialogTitle>Hello</DialogTitle>
+                </Dialog>
+            </div>
+
+        )
+
+    }
+
+    const handleDeletePortfolioItem = (username: string, scrip: string) => {
+        axios.get(`http://localhost:8080/api/admin/portfolios/${username}/${scrip}`, { headers: { Authorization: `Bearer ${currentUser.token}` } })
+    }
 
     return <div>
         <h1>Portfolio</h1>
@@ -81,15 +103,22 @@ export const Portfolio = () => {
                                             </TableCell>
                                         );
                                     })}
-                                    <Button variant="outlined" color="primary" size="small" onClick={() => { alert("to be implemented") }}> + </Button>
-                                    <Button variant="outlined" color="secondary" size="small" onClick={() => { }}> - </Button>
-                                    <Button variant="outlined" color="secondary" size="small" onClick={() => { }}> Delete </Button>
+                                    <Button variant="outlined" color="primary" size="small" onClick={() => {
+                                        handleEditPortfolioItem(row.username, row.scrip, row.type, row.total, row.price);
+                                    }}>
+                                        <EditRounded />
+                                    </Button>
+                                    <Button variant="outlined" color="secondary" size="small" onClick={() => {
+                                        handleDeletePortfolioItem("sachin", row.scrip);
+                                    }}>
+                                        <DeleteOutlined />
+                                    </Button>
                                 </TableRow>
                             );
                         })}
                 </TableBody>
             </Table>
         </TableContainer>
-        <Button color="primary" size="large" > New </Button>
+        <AddPortfolioItem />
     </div>
 }
