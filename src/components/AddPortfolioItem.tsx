@@ -57,6 +57,7 @@ export const AddPortfolioItem = () => {
             { headers: headers }
         )
         handleClose();
+        window.location.reload();
 
     }
 
