@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { render } from "react-dom";
 import { AddPortfolioItem } from "../components/AddPortfolioItem";
+import { EditPortfolioItem } from "../components/EditPortfolioItem";
 import { Storage } from "../utils/storage";
 
 interface PortfolioInterface {
@@ -48,7 +49,8 @@ export const Portfolio = () => {
         const userToken: userStorage = rawToken ? JSON.parse(rawToken) : "";
         setCurrentUser(userToken);
         setIsLoading(true);
-        axios.get(`http://localhost:8080/api/admin/portfolios/${userToken.username}`, { headers: { Authorization: `Bearer ${userToken.token}` } })
+        axios.get(`http://localhost:8080/api/admin/portfolios/${userToken.username}`,
+            { headers: { Authorization: `Bearer ${userToken.token}` } })
             .then(res => res.data)
             .then(json => {
                 setIsLoading(false);
@@ -57,21 +59,27 @@ export const Portfolio = () => {
             })
     }, []);
 
-    const handleEditPortfolioItem = (username: string, scrip: string, type: string, total: number, price: number) => {
-        axios.patch(`http://localhost:8080/api/admin/portfolios/${username}`, { headers: { Authorization: `Bearer ${currentUser.token}` } })
-        return (
-            <div>
-                <Dialog open={true}>
-                    <DialogTitle>Hello</DialogTitle>
-                </Dialog>
-            </div>
+    // const handleEditPortfolioItem = (username: string, scrip: string, type: string, total: number, price: number) => {
+    //     const data = `{"username": "${username}", "scrip": "${scrip}", "type": "${type}", "total": ${total}, "price": ${price}}`
+    //     axios.patch(
+    //         `http://localhost:8080/api/admin/portfolios/${username}`,
+    //         data,
+    //         { headers: { Authorization: `Bearer ${currentUser.token}` } }
+    //     )
+    //     return (
+    //         <div>
+    //             <Dialog open={true}>
+    //                 <DialogTitle>Hello</DialogTitle>
+    //             </Dialog>
+    //         </div>
 
-        )
+    //     )
 
-    }
+    // }
 
     const handleDeletePortfolioItem = (username: string, scrip: string) => {
         axios.get(`http://localhost:8080/api/admin/portfolios/${username}/${scrip}`, { headers: { Authorization: `Bearer ${currentUser.token}` } })
+        window.location.reload();
     }
 
     return <div>
@@ -103,11 +111,12 @@ export const Portfolio = () => {
                                             </TableCell>
                                         );
                                     })}
-                                    <Button variant="outlined" color="primary" size="small" onClick={() => {
+                                    <EditPortfolioItem />
+                                    {/* <Button variant="outlined" color="primary" size="small" onClick={() => {
                                         handleEditPortfolioItem(row.username, row.scrip, row.type, row.total, row.price);
                                     }}>
                                         <EditRounded />
-                                    </Button>
+                                    </Button> */}
                                     <Button variant="outlined" color="secondary" size="small" onClick={() => {
                                         handleDeletePortfolioItem("sachin", row.scrip);
                                     }}>
