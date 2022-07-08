@@ -1,19 +1,29 @@
+import { Button, TextField } from '@mui/material';
+import { useState } from 'react';
 import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
 import { Link, useSearchParams } from 'react-router-dom';
+import { setScrip } from '../redux/features/searchSlice';
 import { useAppSelector } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks/search';
 
 import styles from './Header.module.css';
 import Select from './Select';
 
 export function Header() {
     const { user } = useAppSelector((state) => state.userSlice);
-    const [search, setSearch] = useSearchParams();
 
-    const handleOnSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        alert('Not yet implemented');
-        console.log(search);
+    const [search, setSearch] = useState("");
+    const dispatch = useAppDispatch()
+
+    const handleOnSubmit = () => {
+        dispatch(setScrip(search))
+
+        console.log("onclick: ", search);
     };
+
+    const handleSearch = (arg: string) => {
+        setSearch(arg);
+    }
 
     return (
         <header className={styles.container}>
@@ -51,7 +61,24 @@ export function Header() {
                 // ]}
                 /> */}
 
-                <form className={styles.form} onSubmit={handleOnSubmit}>
+                <TextField
+                    id='search-basic'
+                    label="Search"
+                    variant='outlined'
+                    style={{ width: "70%", margin: "0 0 1rem 0" }}
+                    value={search}
+                    onChange={(e) => {
+                        handleSearch(e.target.value);
+                    }}
+                />
+
+                <Button onClick={handleOnSubmit}>
+                    <Link to="/stock" className={styles.order}>
+                        <p><b>Search</b></p>
+                    </Link>
+                </Button>
+
+                {/* <form className={styles.form} onSubmit={handleOnSubmit}>
                     <input
                         type="text"
                         name="search"
@@ -68,7 +95,7 @@ export function Header() {
                     <button type="submit" className={styles.search} tabIndex={-1}>
                         <AiOutlineSearch size={20} />
                     </button>
-                </form>
+                </form> */}
             </div>
             <div className={styles.buttons}>
                 <Link to="/signin" className={styles.signin}>
@@ -86,3 +113,12 @@ export function Header() {
         </header>
     );
 }
+
+
+const stockname = [
+    { label: "NABIL", value: "AAPL" },
+    { label: "ADBL", value: "ADBL" },
+    { label: "NRIC", value: "NRIC" },
+    { label: "NTC", value: "NTC" },
+
+]

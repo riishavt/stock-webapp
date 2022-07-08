@@ -7,22 +7,37 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import { useInitialize } from './hooks/useInitialize';
 import { Portfolio } from './pages/PortfolioPage';
+import { ThemeProvider } from '@emotion/react';
+import { createTheme } from '@mui/material/styles';
+import { StockPage } from './pages/StockPage';
+
+const darkTheme = createTheme({
+
+  palette: {
+
+    mode: "light",
+  },
+});
+
 
 export default function App() {
   useInitialize();
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/" element={<ProtectedRoute />}>
-            <Route path="/portfolio" element={<Portfolio />} />
+    <ThemeProvider theme={darkTheme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/stock" element={<StockPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/" element={<ProtectedRoute />}>
+              <Route path="/portfolio" element={<Portfolio />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }

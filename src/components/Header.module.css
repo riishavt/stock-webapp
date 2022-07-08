@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--dark-blue);
+  background-color: #09398a;
 }
 
 .content {

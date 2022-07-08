@@ -1,6 +1,5 @@
 .container {
     min-height: calc(100vh - 6.875rem);
-    background-color: var(--gray);
 }
 
 .error,
