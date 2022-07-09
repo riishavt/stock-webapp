@@ -42,11 +42,10 @@ export const StockPage = () => {
             mode: CrosshairMode.Normal,
         },
         rightPriceScale: {
-            borderColor: 'rgba(197, 203, 206, 1)',
+            borderColor: 'rgba(197, 203, 206, 0.8)',
         },
         timeScale: {
-
-            borderColor: 'rgba(197, 203, 206, 1)',
+            borderColor: 'rgba(197, 203, 206, 0.8)',
         },
     };
 
@@ -59,7 +58,7 @@ export const StockPage = () => {
                 console.log(json)
                 setStockData(json);
             })
-
+        setIsChartLoading(true);
         axios.get(`http://localhost:8080/api/nepseHistory/other/${scrip}`)
             .then(res => res.data)
             .then(json => {
@@ -81,10 +80,11 @@ export const StockPage = () => {
                 );
             }
             )
-    }, []);
+    }, [scrip]);
     return (
         <div>
             <h1>{scrip}</h1>
+
             {!isLoading ?
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
@@ -121,18 +121,12 @@ export const StockPage = () => {
 
                     <Chart {...options}>
                         <CandlestickSeries
-                            data={historicData.slice(0, 200)}
-                            upColor="rgba(255, 144, 0, 1)"
-                            downColor="#000"
-                            borderDownColor="rgba(255, 144, 0, 1)"
-                            borderUpColor="rgba(255, 144, 0, 1)"
-                            wickDownColor="rgba(255, 144, 0, 1)"
-                            wickUpColor="rgba(255, 144, 0, 1)"
+                            data={historicData.slice(0, 500)}
                         />
                     </Chart>
                     : <div>Loading...</div>}
             </div>
-            <Button variant="contained" color="primary" onClick={() => console.log(historicData.slice(0, 200))}>Click</Button>
+            <Button variant="contained" color="primary" onClick={() => console.log(historicData.slice(0, 500))}>Click</Button>
 
         </div>
     )
