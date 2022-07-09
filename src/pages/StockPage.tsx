@@ -3,7 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks/search";
 import { CrosshairMode } from 'lightweight-charts';
-import { Chart, CandlestickSeries } from 'lightweight-charts-react-wrapper';
+import { Chart, CandlestickSeries, HistogramSeries } from 'lightweight-charts-react-wrapper';
+import { forEach } from "lodash";
 
 
 interface StockInterface {
@@ -22,10 +23,13 @@ export const StockPage = () => {
     const [isChartLoading, setIsChartLoading] = useState(true);
     const [stockData, setStockData] = useState<StockInterface>({} as StockInterface);
     const [historicData, setHistoricData] = useState<any[]>([]);
+    const [volumeData, setVolumeData] = useState<any[]>([]);
+    const [sector, setSector] = useState<string>("");
+    const [isFindSectorLoading, setIsFindSectorLoading] = useState(false);
 
     const options = {
-        width: 600,
-        height: 300,
+        width: 800,
+        height: 500,
         layout: {
             backgroundColor: '#000000',
             textColor: 'rgba(255, 255, 255, 0.9)',
@@ -49,7 +53,21 @@ export const StockPage = () => {
         },
     };
 
+    const findSector = (scripName: string) => {
+        forEach(sectors, (sector, value) => {
+
+            if (sector.includes(scripName)) {
+                console.log(value)
+                setSector(value);
+                setIsFindSectorLoading(false);
+            }
+        })
+
+    }
+
     useEffect(() => {
+        setIsFindSectorLoading(true);
+        findSector(scrip);
         setIsLoading(true);
         axios.get(`http://localhost:8080/api/stocks/${scrip}`)
             .then(res => res.data)
@@ -59,7 +77,7 @@ export const StockPage = () => {
                 setStockData(json);
             })
         setIsChartLoading(true);
-        axios.get(`http://localhost:8080/api/nepseHistory/other/${scrip}`)
+        axios.get(`http://localhost:8080/api/nepseHistory/${sector}/${scrip}`)
             .then(res => res.data)
             .then(json => {
                 setIsChartLoading(false);
@@ -78,6 +96,15 @@ export const StockPage = () => {
                     }
                     )
                 );
+                setVolumeData(
+                    json.map((item: any) => {
+                        return {
+                            //{ time: '2019-05-28', value: 59.57 },
+                            time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
+                            value: item.Volume,
+                        }
+                    })
+                )
             }
             )
     }, [scrip]);
@@ -117,11 +144,18 @@ export const StockPage = () => {
                 </TableContainer>
                 : <div>Loading...</div>}
             <div>
-                {!isChartLoading ?
+                {!isChartLoading && !isFindSectorLoading ?
 
                     <Chart {...options}>
                         <CandlestickSeries
                             data={historicData.slice(0, 500)}
+                        />
+                        <HistogramSeries
+                            data={volumeData}
+                            priceScaleId=""
+                            color="#26a69a"
+                            priceFormat={{ type: 'volume' }}
+                            scaleMargins={{ top: 0.9, bottom: 0 }}
                         />
                     </Chart>
                     : <div>Loading...</div>}
@@ -130,4 +164,268 @@ export const StockPage = () => {
 
         </div>
     )
+}
+
+
+const sectors = {
+    corporate_debentures: ['NICAD8283', 'NBLD85'],
+    microfinance: ['ACLBSL', 'ALBSL', 'CBBL', 'CLBSL', 'DDBL', 'FMDBL', 'FOWAD', 'GMFBS', 'GILB', 'GBLBS', 'GLBSL', 'ILBS', 'JALPA', 'JSLBB', 'JBLB', 'KMCDB', 'KLBSL', 'LLBS', 'MLBSL', 'MSLB', 'MKLB', 'MLBS', 'MERO', 'MMFDB', 'MLBBL', 'NSLB', 'NLBBL', 'NESDO', 'NICLBSL', 'NUBL', 'RULB', 'RMDC', 'RSDC', 'SABSL', 'SDLBSL', 'SMATA', 'SLBSL', 'SKBBL', 'SMFDB', 'SMB', 'SWBBL', 'SMFBS', 'SLBBL', 'USLB', 'VLBS', 'WNLB'],
+    commercial_banks: ['ADBL', 'BOKL', 'CCBL', 'CZBIL', 'CBL', 'EBL', 'GBIME', 'KBL', 'LBL', 'MBL', 'MEGA', 'NABIL', 'NBL', 'NCCB', 'SBI', 'NICA', 'NMB', 'PRVU', 'PCBL', 'SANIMA', 'SBL', 'SCB', 'SRBL'],
+    non_life_insurance: ['AIL', 'EIC', 'GIC', 'HGI', 'IGI', 'LGIL', 'NIL', 'NICL', 'NLG', 'PRIN', 'PIC', 'PICL', 'RBCL', 'SIC', 'SGI', 'SICL', 'SIL', 'UIC'],
+    hydro_powers: ['AKJCL', 'API', 'AKPL', 'AHPC', 'BARUN', 'BNHC', 'BPCL', 'CHL', 'CHCL', 'DHPL', 'GHL', 'GLH', 'HDHPC', 'HURJA', 'HPPL', 'JOSHI', 'KPCL', 'KKHC', 'LEC', 'MBJC', 'MKJC', 'MEN', 'MHNL', 'NHPC', 'NHDL', 'NGPL', 'NYADI', 'PMHPL', 'PPCL', 'RADHI', 'RHPL', 'RURU', 'SAHAS', 'SPC', 'SHPC', 'SJCL', 'SSHL', 'SHEL', 'SPDL', 'TPC', 'UNHPL', 'UMRH', 'UMHL', 'UPCL', 'UPPER'],
+    life_insurance: ['ALICL', 'GLICL', 'JLI', 'LICN', 'NLICL', 'NLIC', 'PLI', 'PLIC', 'RLI', 'SLI', 'SLICL', 'ULI'],
+    finance: ['BFC', 'CFCL', 'GFCL', 'GMFIL', 'GUFL', 'ICFC', 'JFL', 'MFIL', 'MPFL', 'NFS', 'PFL', 'PROFL', 'RLFL', 'SFCL', 'SIFC'],
+    tradings: ['BBC', 'STC'],
+    manufacturing_and_processing: ['BNT', 'HDL', 'SHIVM', 'UNL'],
+    investment: ['CHDC', 'CIT', 'ENL', 'HIDCL', 'NIFRA', 'NRN'],
+    hotels: ['CGH', 'OHL', 'SHL', 'TRH'],
+    development_banks: ['CORBL', 'EDBL', 'GBBL', 'GRDBL', 'JBBL', 'KSBBL', 'KRBL', 'LBBL', 'MLBL', 'MDB', 'MNBBL', 'NABBC', 'SAPDBL', 'SADBL', 'SHINE', 'SINDU'],
+    mutual_fund: ['KEF', 'LUK', 'NEF', 'NIBLPF'],
+    other: ['NTC', 'NRIC']
+}
+type SectorType = {
+    coporate_debentures: string[];
+    microfinance: string[];
+    commercial_banks: string[];
+    non_life_insurance: string[];
+    hydro_powers: string[];
+    life_insurance: string[];
+    finance: string[];
+    tradings: string[];
+    manufacturing_and_processing: string[];
+    investment: string[];
+    hotels: string[];
+    development_banks: string[];
+    mutual_fund: string[];
+    other: string[];
+}
+
+const sectorsJson = {
+    "corporate_debentures": [
+        "NICAD8283",
+        "NBLD85"
+    ],
+    "microfinance": [
+        "ACLBSL",
+        "ALBSL",
+        "CBBL",
+        "CLBSL",
+        "DDBL",
+        "FMDBL",
+        "FOWAD",
+        "GMFBS",
+        "GILB",
+        "GBLBS",
+        "GLBSL",
+        "ILBS",
+        "JALPA",
+        "JSLBB",
+        "JBLB",
+        "KMCDB",
+        "KLBSL",
+        "LLBS",
+        "MLBSL",
+        "MSLB",
+        "MKLB",
+        "MLBS",
+        "MERO",
+        "MMFDB",
+        "MLBBL",
+        "NSLB",
+        "NLBBL",
+        "NESDO",
+        "NICLBSL",
+        "NUBL",
+        "RULB",
+        "RMDC",
+        "RSDC",
+        "SABSL",
+        "SDLBSL",
+        "SMATA",
+        "SLBSL",
+        "SKBBL",
+        "SMFDB",
+        "SMB",
+        "SWBBL",
+        "SMFBS",
+        "SLBBL",
+        "USLB",
+        "VLBS",
+        "WNLB"
+    ],
+    "commercial_banks": [
+        "ADBL",
+        "BOKL",
+        "CCBL",
+        "CZBIL",
+        "CBL",
+        "EBL",
+        "GBIME",
+        "KBL",
+        "LBL",
+        "MBL",
+        "MEGA",
+        "NABIL",
+        "NBL",
+        "NCCB",
+        "SBI",
+        "NICA",
+        "NMB",
+        "PRVU",
+        "PCBL",
+        "SANIMA",
+        "SBL",
+        "SCB",
+        "SRBL"
+    ],
+    "non_life_insurance": [
+        "AIL",
+        "EIC",
+        "GIC",
+        "HGI",
+        "IGI",
+        "LGIL",
+        "NIL",
+        "NICL",
+        "NLG",
+        "PRIN",
+        "PIC",
+        "PICL",
+        "RBCL",
+        "SIC",
+        "SGI",
+        "SICL",
+        "SIL",
+        "UIC"
+    ],
+    "hydro_powers": [
+        "AKJCL",
+        "API",
+        "AKPL",
+        "AHPC",
+        "BARUN",
+        "BNHC",
+        "BPCL",
+        "CHL",
+        "CHCL",
+        "DHPL",
+        "GHL",
+        "GLH",
+        "HDHPC",
+        "HURJA",
+        "HPPL",
+        "JOSHI",
+        "KPCL",
+        "KKHC",
+        "LEC",
+        "MBJC",
+        "MKJC",
+        "MEN",
+        "MHNL",
+        "NHPC",
+        "NHDL",
+        "NGPL",
+        "NYADI",
+        "PMHPL",
+        "PPCL",
+        "RADHI",
+        "RHPL",
+        "RURU",
+        "SAHAS",
+        "SPC",
+        "SHPC",
+        "SJCL",
+        "SSHL",
+        "SHEL",
+        "SPDL",
+        "TPC",
+        "UNHPL",
+        "UMRH",
+        "UMHL",
+        "UPCL",
+        "UPPER"
+    ],
+    "life_insurance": [
+        "ALICL",
+        "GLICL",
+        "JLI",
+        "LICN",
+        "NLICL",
+        "NLIC",
+        "PLI",
+        "PLIC",
+        "RLI",
+        "SLI",
+        "SLICL",
+        "ULI"
+    ],
+    "finance": [
+        "BFC",
+        "CFCL",
+        "GFCL",
+        "GMFIL",
+        "GUFL",
+        "ICFC",
+        "JFL",
+        "MFIL",
+        "MPFL",
+        "NFS",
+        "PFL",
+        "PROFL",
+        "RLFL",
+        "SFCL",
+        "SIFC"
+    ],
+    "tradings": [
+        "BBC",
+        "STC"
+    ],
+    "manufacturing_and_processing": [
+        "BNT",
+        "HDL",
+        "SHIVM",
+        "UNL"
+    ],
+    "investment": [
+        "CHDC",
+        "CIT",
+        "ENL",
+        "HIDCL",
+        "NIFRA",
+        "NRN"
+    ],
+    "hotels": [
+        "CGH",
+        "OHL",
+        "SHL",
+        "TRH"
+    ],
+    "development_banks": [
+        "CORBL",
+        "EDBL",
+        "GBBL",
+        "GRDBL",
+        "JBBL",
+        "KSBBL",
+        "KRBL",
+        "LBBL",
+        "MLBL",
+        "MDB",
+        "MNBBL",
+        "NABBC",
+        "SAPDBL",
+        "SADBL",
+        "SHINE",
+        "SINDU"
+    ],
+    "mutual_fund": [
+        "KEF",
+        "LUK",
+        "NEF",
+        "NIBLPF"
+    ],
+    "other": [
+        "NTC",
+        "NRIC"
+    ]
 }

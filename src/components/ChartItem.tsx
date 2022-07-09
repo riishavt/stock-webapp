@@ -1,11 +1,13 @@
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
-import ReactApexChart from "react-apexcharts";
 import { CallApi } from "../utils/callApi";
+import { CrosshairMode } from 'lightweight-charts';
+import { Chart, CandlestickSeries } from 'lightweight-charts-react-wrapper';
 
 
 export const ChartItem = () => {
-    const [fetchedData, setFetchedData] = useState<any>([]);
+    const [fetchedData, setFetchedData] = useState<any[]>([]);
+    const [isChartLoading, setIsChartLoading] = useState(true);
     useEffect(() => {
         getData()
     }, []);
@@ -22,78 +24,65 @@ export const ChartItem = () => {
             const response: any = await CallApi(data);
             const responseJson: any = await response.json();
             if (response.status === 200) {
+                setIsChartLoading(false);
                 setFetchedData(
                     responseJson
                         .map((item: any) => {
                             return {
-                                x: new Date(item.Time * 1000).toLocaleDateString('en-US'),
-                                y: [
-                                    item.Open,
-                                    item.High,
-                                    item.Low,
-                                    item.Close,
-                                ],
-                            };
-                        })
+                                // { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
+                                // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
+                                time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
+                                open: item.Open,
+                                high: item.High,
+                                low: item.Low,
+                                close: item.Close,
+                            }
+                        }
+                        )
                 );
                 console.log(responseJson);
             }
-
             //   console.log("JSON--->", responseJson);
         } catch (e) {
             console.log(e);
         }
     };
 
-    const options: any = {
-        // theme: {
-        //     mode: isDarkMode ? 'dark' : 'light',
-        // },
-        chart: {
-            type: "candlestick",
-            height: 450,
+    const options = {
+        width: 700,
+        height: 500,
+        layout: {
+            backgroundColor: '#000000',
+            textColor: 'rgba(255, 255, 255, 0.9)',
         },
-        title: {
-            text: "CandleStick Chart",
-            align: "left",
-        },
-        annotations: {
-            xaxis: [
-                {
-                    x: 'Oct 06 14:00',
-                    borderColor: '#00E396',
-                    label: {
-                        borderColor: '#00E396',
-                        style: {
-                            fontSize: '12px',
-                            color: '#fff',
-                            background: '#00E396'
-                        },
-                        orientation: 'horizontal',
-                        offsetY: 7,
-                        text: 'Annotation Test'
-                    }
-                }
-            ]
-        },
-        xaxis: {
-            type: "datetime",
-        },
-        yaxis: {
-            tooltip: {
-                enabled: true,
+        grid: {
+            vertLines: {
+                color: 'rgba(197, 203, 206, 0.5)',
             },
+            horzLines: {
+                color: 'rgba(197, 203, 206, 0.5)',
+            },
+        },
+        crosshair: {
+            mode: CrosshairMode.Normal,
+        },
+        rightPriceScale: {
+            borderColor: 'rgba(197, 203, 206, 0.8)',
+        },
+        timeScale: {
+            borderColor: 'rgba(197, 203, 206, 0.8)',
         },
     };
 
     return (
-        <div style={{ minWidth: "100%", overflowX: "scroll" }}>
-            <ReactApexChart
-                options={options}
-                series={[{ data: fetchedData }]}
-                type="candlestick"
-                height={350}
-            />
+        <div >
+            {isChartLoading ? <div>Loading...</div> :
+                <Chart {...options}>
+                    <CandlestickSeries
+                        data={fetchedData.slice(0, 500)}
+                    />
+                </Chart>
+            }
         </div>
     );
 }
