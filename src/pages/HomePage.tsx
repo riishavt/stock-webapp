@@ -11,7 +11,7 @@ export default function HomePage() {
 
     return (
         <div className={styles.container}>
-            <Grid container spacing={2} >
+            <Grid container spacing={2} sx={{ bgcolor: 'grey' }}>
                 <Grid item xs={8}>
                     <ChartItem />
                 </Grid>

@@ -1,3 +1,4 @@
+import { Home, Padding } from '@mui/icons-material';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
@@ -29,11 +30,8 @@ export function Header() {
         <header className={styles.container}>
             <div className={styles.content}>
                 <Link to="/">
-                    <img
-                        // src="../../src/assets/amazon-logo.svg"
-                        alt="Asset Placeholder"
-                        className={styles.logo}
-                    />
+                    <Home sx={{ fontSize: 55 }} />
+
                 </Link>
 
                 {/* <Select
@@ -65,15 +63,15 @@ export function Header() {
                     id='search-basic'
                     label="Search"
                     variant='outlined'
-                    style={{ width: "70%", margin: "0 0 1rem 0" }}
+                    style={{ width: "60%" }}
                     value={search}
                     onChange={(e) => {
                         handleSearch(e.target.value);
                     }}
                 />
 
-                <Button onClick={handleOnSubmit}>
-                    <Link to="/stock" className={styles.order}>
+                <Button onClick={handleOnSubmit} variant="contained" sx={{ mr: 25 }}>
+                    <Link to="/stock" >
                         <p><b>Search</b></p>
                     </Link>
                 </Button>

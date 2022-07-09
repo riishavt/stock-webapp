@@ -72,7 +72,7 @@ export const IndexTable = () => {
         <div>{!isLoading ?
             <div>
                 <TableContainer sx={{ maxHeight: 440 }} >
-                    <Table stickyHeader aria-label="sticky table">
+                    <Table stickyHeader aria-label="a dense table">
                         <TableHead>
                             <TableRow>
                                 {columns.map((column) => (
