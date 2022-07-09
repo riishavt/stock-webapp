@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { CallApi } from "../utils/callApi";
@@ -22,19 +23,20 @@ export const ChartItem = () => {
             const responseJson: any = await response.json();
             if (response.status === 200) {
                 setFetchedData(
-                    responseJson.map((item: any) => {
-                        return {
-                            x: new Date(Number(item.Time)),
-                            y: [
-                                item.Open,
-                                item.High,
-                                item.Low,
-                                item.Close,
-                            ],
-                        };
-                    })
+                    responseJson
+                        .map((item: any) => {
+                            return {
+                                x: new Date(item.Time),
+                                y: [
+                                    item.Open,
+                                    item.High,
+                                    item.Low,
+                                    item.Close,
+                                ],
+                            };
+                        })
                 );
-                console.log(fetchedData);
+                console.log(responseJson);
             }
 
             //   console.log("JSON--->", responseJson);
@@ -78,7 +80,7 @@ export const ChartItem = () => {
             type: "category",
             labels: {
                 formatter: function (val: any) {
-                    return new Date(val).toLocaleDateString();
+                    return dayjs(val).format('MMM DD YYYY')
                 }
             }
         },
