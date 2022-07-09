@@ -26,7 +26,7 @@ export const ChartItem = () => {
                     responseJson
                         .map((item: any) => {
                             return {
-                                x: new Date(item.Time),
+                                x: new Date(item.Time * 1000).toLocaleDateString('en-US'),
                                 y: [
                                     item.Open,
                                     item.High,
@@ -77,12 +77,7 @@ export const ChartItem = () => {
             ]
         },
         xaxis: {
-            type: "category",
-            labels: {
-                formatter: function (val: any) {
-                    return dayjs(val).format('MMM DD YYYY')
-                }
-            }
+            type: "datetime",
         },
         yaxis: {
             tooltip: {
