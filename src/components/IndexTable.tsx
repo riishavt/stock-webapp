@@ -71,7 +71,7 @@ export const IndexTable = () => {
     return (
         <div>{!isLoading ?
             <div>
-                <TableContainer sx={{ maxHeight: 440 }} >
+                <TableContainer sx={{ maxHeight: 380 }} >
                     <Table stickyHeader aria-label="a dense table">
                         <TableHead>
                             <TableRow>

@@ -3,8 +3,10 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSignupMutation } from '../redux/services/userApi';
 import { Alert } from '../components/Alert';
-
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import styles from './RegisterPage.module.css';
+import { Copyright } from '@mui/icons-material';
+import { Container, CssBaseline, Box, Avatar, Typography, Grid, TextField, FormControlLabel, Checkbox, Button } from '@mui/material';
 
 interface Inputs {
   // name: string;
@@ -25,18 +27,19 @@ export default function RegisterPage() {
   const [searchParams] = useSearchParams();
 
   const {
-    register,
-    handleSubmit,
-    getValues,
-    reset,
     formState: { errors }
   } = useForm<Inputs>();
 
-  const handleOnSubmit: SubmitHandler<Inputs> = async ({
-    // name,
-    username,
-    password
-  }) => {
+
+  const handleSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    let username: string = data.get('username') as string;
+    let password: string = data.get('password') as string;
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
     await signup({
       username,
       password
@@ -76,93 +79,65 @@ export default function RegisterPage() {
           className={styles.alert}
         />
       )}
-      <div className={styles.content}>
-        <h1 className={styles.title}>Create account</h1>
-        <form onSubmit={handleSubmit(handleOnSubmit)}>
-          {/* <label htmlFor="name" className={styles.label}>
-            Your Name
-            <input
-              type="text"
-              {...register('name', {
-                required: 'Please enter your name',
-                maxLength: {
-                  value: 30,
-                  message: 'Name at most 30 characters'
-                },
-                minLength: {
-                  value: 3,
-                  message: 'Name at least 3 characters'
-                }
-              })}
-              className={styles.input}
-            />
-          </label>
-          {errors.name && (
-            <span className={styles.error}>{errors.name.message}</span>
-          )} */}
-          <label htmlFor="username" className={styles.label}>
-            Username
-            <input
-              type="text"
-              {...register('username', {
-                required: 'Please enter your username',
-                // pattern: {
-                //   value:
-                //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                //   message: 'Please enter a valid email.'
-                // }
-              })}
-              className={styles.input}
-            />
-          </label>
-          {errors.username && (
-            <span className={styles.error}>{errors.username.message}</span>
-          )}
-          <label htmlFor="password" className={styles.label}>
-            Password
-            <input
-              type="password"
-              {...register('password', {
-                required: 'Please enter your password',
-                minLength: {
-                  value: 3,
-                  message: 'Password at least 6 characters'
-                }
-              })}
-              className={styles.input}
-            />
-          </label>
-          {errors.password && (
-            <span className={styles.error}>{errors.password.message}</span>
-          )}
-          <label htmlFor="confirm" className={styles.label}>
-            Password again
-            <input
-              type="password"
-              {...register('confirm', {
-                required: 'Please confirm your password',
-                validate: {
-                  dirty: (v) => {
-                    if (v !== getValues('password'))
-                      return 'Password does not match';
-                  }
-                }
-              })}
-              className={styles.input}
-            />
-          </label>
-          {errors.confirm && (
-            <span className={styles.error}>{errors.confirm.message}</span>
-          )}
-          <button type="submit" className={styles.button}>
-            {isLoading ? 'Loading...' : 'Create your account'}
-          </button>
-        </form>
-        <p className={styles.condition}>
-          By creating an account, you agree to {' '}
-          <span>Conditions of Use</span> and <span>Privacy Notice.</span>
-        </p>
-      </div>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleSubmitSignUp} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link to="/signin">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
       <footer className={styles.footer}>
         <p>Already have an account?</p>
         <Link to="/signin">

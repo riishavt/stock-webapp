@@ -49,8 +49,8 @@ export const ChartItem = () => {
     };
 
     const options = {
-        width: 700,
-        height: 500,
+        width: 600,
+        height: 400,
         layout: {
             backgroundColor: '#000000',
             textColor: 'rgba(255, 255, 255, 0.9)',
