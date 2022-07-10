@@ -4,9 +4,11 @@ import { Alert } from '../components/Alert';
 import { userSlice } from '../redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { useSignInMutation } from '../redux/services/userApi';
-import { useForm, SubmitHandler } from 'react-hook-form';
-
+import { useForm } from 'react-hook-form';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import styles from './SignInPage.module.css';
+import { Copyright, Home } from '@mui/icons-material';
+import { Container, CssBaseline, Box, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid } from '@mui/material';
 
 interface Inputs {
   username: string;
@@ -26,18 +28,24 @@ export default function SignInPage() {
   const [signIn, { isLoading, isSuccess, error, isError }] =
     useSignInMutation();
   const {
-    register,
-    handleSubmit,
     formState: { errors },
     reset
   } = useForm<Inputs>();
 
-  const handleOnSubmit: SubmitHandler<Inputs> = async ({ username, password }) => {
-    const data = await signIn({
+  const handleSubmitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    let username: string = data.get('username') as string;
+    let password: string = data.get('password') as string;
+    console.log({
+      username: data.get('username'),
+      password: data.get('password'),
+    });
+    const userData = await signIn({
       username,
-      password
+      password,
     }).unwrap();
-    dispatch(userSlice.actions.login(data));
+    dispatch(userSlice.actions.login(userData));
   };
 
   useEffect(() => {
@@ -57,11 +65,7 @@ export default function SignInPage() {
   return (
     <div className={styles.container}>
       <Link to="/">
-        <img
-          // src="./src/assets/amazon-logo.png"
-          alt="Asset Placeholder"
-          className={styles.logo}
-        />
+        <Home />
       </Link>
       {error && (
         <Alert
@@ -71,60 +75,62 @@ export default function SignInPage() {
           className={styles.alert}
         />
       )}
-      <div className={styles.content}>
-        <h1 className={styles.title}>Sign In</h1>
-        <form onSubmit={handleSubmit(handleOnSubmit)}>
-          <label htmlFor="username" className={styles.label}>
-            Username
-            <input
-              type="text"
-              {...register('username', {
-                required: 'Username is required',
-                // pattern: {
-                //   value:
-                //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                //   message: 'Please enter a valid email.'
-                // }
-              })}
-              className={styles.input}
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" onSubmit={handleSubmitLogin} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
               required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
             />
-          </label>
-          {errors.username && (
-            <span className={styles.error}>{errors.username.message}</span>
-          )}
-          <label htmlFor="password" className={styles.label}>
-            Password
-            <input
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
               type="password"
-              {...register('password', {
-                required: 'Password is required',
-                minLength: {
-                  value: 3,
-                  message: 'Password atleast 6 characters'
-                },
-                maxLength: 30
-              })}
-              className={styles.input}
-              required
+              id="password"
+              autoComplete="current-password"
             />
-          </label>
-          {errors.password && (
-            <span className={styles.error}>{errors.password.message}</span>
-          )}
-          <button disabled={isLoading} type="submit" className={styles.button}>
-            {isLoading || isSuccess ? 'Loading...' : 'Continue'}
-          </button>
-        </form>
-      </div>
-      <div className={styles.footer}>
-        <p>New?</p>
-        <Link to="/register">
-          <button disabled={isLoading} className={styles.link}>
-            Create your account
-          </button>
-        </Link>
-      </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item>
+                <Link to="/register" >
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
     </div>
   );
 }

@@ -165,7 +165,7 @@ export default function RegisterPage() {
       </div>
       <footer className={styles.footer}>
         <p>Already have an account?</p>
-        <Link to="/login">
+        <Link to="/signin">
           <p className={styles.link}>Sign In</p>
         </Link>
       </footer>
