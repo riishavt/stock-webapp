@@ -2,7 +2,6 @@ import { Add, DeleteOutlined, EditRounded } from "@mui/icons-material";
 import { Button, Dialog, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { render } from "react-dom";
 import { AddPortfolioItem } from "../components/AddPortfolioItem";
 import { EditPortfolioItem } from "../components/EditPortfolioItem";
 import { Storage } from "../utils/storage";
@@ -45,19 +44,25 @@ export const Portfolio = () => {
     ];
 
     useEffect(() => {
+        setIsLoading(true);
+        getPortfolio()
+    }, []);
+
+    const getPortfolio = async () => {
         const rawToken = Storage.load("user");
         const userToken: userStorage = rawToken ? JSON.parse(rawToken) : "";
         setCurrentUser(userToken);
-        setIsLoading(true);
-        axios.get(`http://localhost:8080/api/admin/portfolios/${userToken.username}`,
-            { headers: { Authorization: `Bearer ${userToken.token}` } })
-            .then(res => res.data)
-            .then(json => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/admin/portfolios/${userToken.username}`,
+                { headers: { Authorization: `Bearer ${userToken.token}` } });
+            if (response.status === 200) {
+                setPortfolioData(response.data);
                 setIsLoading(false);
-                console.log(json)
-                setPortfolioData(json);
-            })
-    }, []);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     // const handleEditPortfolioItem = (username: string, scrip: string, type: string, total: number, price: number) => {
     //     const data = `{"username": "${username}", "scrip": "${scrip}", "type": "${type}", "total": ${total}, "price": ${price}}`

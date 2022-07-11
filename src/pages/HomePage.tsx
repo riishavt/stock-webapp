@@ -1,5 +1,4 @@
-import { ViewColumn } from '@mui/icons-material';
-import { Card, Container, Grid, TableRow, Typography } from '@mui/material';
+import { Card, Container, Grid, Typography } from '@mui/material';
 import { ChartItem } from '../components/ChartItem';
 import { IndexTable } from '../components/IndexTable';
 import { LiveTable } from '../components/LiveTable';

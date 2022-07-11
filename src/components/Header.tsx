@@ -1,5 +1,5 @@
-import { Home, Padding } from '@mui/icons-material';
-import { Autocomplete, Button, MenuItem, TextField } from '@mui/material';
+import { Home } from '@mui/icons-material';
+import { Autocomplete, Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { setScrip } from '../redux/features/searchSlice';
@@ -60,7 +60,7 @@ export function Header() {
                     </Link>
                 </Button>
             </div>
-            <div className={styles.buttons}>
+            <Button variant="contained" color="primary" size="small">
                 <Link to="/signin" className={styles.signin}>
                     <p>
                         <span>{user ? user.username : 'Sign in'}</span>
@@ -69,10 +69,12 @@ export function Header() {
                         <b> Accounts</b>
                     </p>
                 </Link>
+            </Button>
+            <Button variant="contained" color="primary" size="small">
                 <Link to="/portfolio" className={styles.order}>
                     <p><b>Portfolio</b></p>
                 </Link>
-            </div>
+            </Button>
         </header>
     );
 }

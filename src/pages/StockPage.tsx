@@ -37,7 +37,6 @@ const sectors = {
 
 export const StockPage = () => {
     const { scrip } = useAppSelector((state) => state.scrip);
-    //  const [scripState, setScripState] = useState<string>(scrip);
     const [isLoading, setIsLoading] = useState(true);
     const [isChartLoading, setIsChartLoading] = useState(true);
     const [stockData, setStockData] = useState<StockInterface>({} as StockInterface);

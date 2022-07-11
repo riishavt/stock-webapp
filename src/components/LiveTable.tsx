@@ -31,14 +31,22 @@ export const LiveTable = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get("http://localhost:8080/api/stocks")
-            .then(res => res.data)
-            .then(json => {
-                setIsLoading(false);
-                console.log(json)
-                setLiveStockData(json);
-            })
+        getLiveStock()
     }, []);
+
+    const getLiveStock = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/api/stocks");
+            if (response.status === 200) {
+                setLiveStockData(response.data);
+                setIsLoading(false);
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <div>{!isLoading ?

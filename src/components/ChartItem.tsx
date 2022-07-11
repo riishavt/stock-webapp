@@ -8,6 +8,7 @@ export const ChartItem = () => {
     const [fetchedData, setFetchedData] = useState<any[]>([]);
     const [isChartLoading, setIsChartLoading] = useState(true);
     useEffect(() => {
+        setIsChartLoading(true);
         getData()
     }, []);
 
@@ -28,7 +29,6 @@ export const ChartItem = () => {
                         .map((item: any) => {
                             return {
                                 // { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
-                                // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
                                 time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
                                 open: item.Open,
                                 high: item.High,
@@ -38,13 +38,13 @@ export const ChartItem = () => {
                         }
                         )
                 );
-                console.log(responseJson);
+                setIsChartLoading(false);
             }
-            setIsChartLoading(false);
-            //   console.log("JSON--->", responseJson);
+
         } catch (e) {
             console.log(e);
         }
+
     };
 
     const options = {
@@ -62,14 +62,14 @@ export const ChartItem = () => {
                 color: 'rgba(197, 203, 206, 0.5)',
             },
         },
-        crosshair: {
-            mode: CrosshairMode.Normal,
-        },
         rightPriceScale: {
             borderColor: 'rgba(197, 203, 206, 0.8)',
         },
         timeScale: {
             borderColor: 'rgba(197, 203, 206, 0.8)',
+        },
+        crosshair: {
+            mode: CrosshairMode.Normal,
         },
     };
 
@@ -78,7 +78,7 @@ export const ChartItem = () => {
             {isChartLoading ? <div>Loading...</div> :
                 <Chart {...options}>
                     <CandlestickSeries
-                        data={fetchedData.slice(0, 500)}
+                        data={fetchedData}
                     />
                 </Chart>
             }

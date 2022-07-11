@@ -57,14 +57,22 @@ export const IndexTable = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get("http://localhost:8080/api/index")
-            .then(res => res.data)
-            .then(json => {
-                setIsLoading(false);
-                console.log(json)
-                setIndexData(json);
-            })
+        fetchIndexData()
     }, []);
+
+    const fetchIndexData = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/api/index");
+            if (response.status === 200) {
+                setIndexData(response.data);
+                setIsLoading(false);
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
 
 
 
