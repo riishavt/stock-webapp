@@ -1,5 +1,4 @@
-import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CallApi } from "../utils/callApi";
 import { CrosshairMode } from 'lightweight-charts';
 import { Chart, CandlestickSeries } from 'lightweight-charts-react-wrapper';
@@ -24,7 +23,6 @@ export const ChartItem = () => {
             const response: any = await CallApi(data);
             const responseJson: any = await response.json();
             if (response.status === 200) {
-                setIsChartLoading(false);
                 setFetchedData(
                     responseJson
                         .map((item: any) => {
@@ -42,6 +40,7 @@ export const ChartItem = () => {
                 );
                 console.log(responseJson);
             }
+            setIsChartLoading(false);
             //   console.log("JSON--->", responseJson);
         } catch (e) {
             console.log(e);

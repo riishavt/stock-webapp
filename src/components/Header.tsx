@@ -1,14 +1,12 @@
 import { Home, Padding } from '@mui/icons-material';
 import { Autocomplete, Button, MenuItem, TextField } from '@mui/material';
 import { useState } from 'react';
-import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { setScrip } from '../redux/features/searchSlice';
 import { useAppSelector } from '../redux/hooks';
 import { useAppDispatch } from '../redux/hooks/search';
 
 import styles from './Header.module.css';
-import Select from './Select';
 
 export function Header() {
     const { user } = useAppSelector((state) => state.userSlice);
@@ -16,7 +14,8 @@ export function Header() {
     const [search, setSearch] = useState("");
     const dispatch = useAppDispatch()
 
-    const handleOnSubmit = () => {
+    const handleOnSubmit = (e: any) => {
+        e.preventDefault();
         dispatch(setScrip(search))
 
         console.log("onclick: ", search);
@@ -33,31 +32,6 @@ export function Header() {
                     <Home sx={{ fontSize: 55 }} />
 
                 </Link>
-
-                {/* <Select
-                    onChange={(e) => {
-                        search.set('sort', e.target.value);
-                        setSearch(search, {
-                            replace: true,
-                        });
-                    }}
-                    label="Sort by"
-                    name="sort"
-                // options={[
-                //     {
-                //         label: 'Name',
-                //         value: 'name',
-                //     },
-                //     {
-                //         label: 'Price High',
-                //         value: 'priceDesc',
-                //     },
-                //     {
-                //         label: 'Price Low',
-                //         value: 'priceAsc',
-                //     },
-                // ]}
-                /> */}
 
                 <Autocomplete
                     id="combo-box-demo"
@@ -78,47 +52,13 @@ export function Header() {
                             }}
                         />
                     )}
-
-
                 />
-
-                {/* <TextField
-                    id='search-basic'
-                    label="Search"
-                    variant='outlined'
-                    style={{ width: "60%" }}
-                    value={search}
-                    onChange={(e) => {
-                        handleSearch(e.target.value);
-                    }}
-                /> */}
-
-
 
                 <Button onClick={handleOnSubmit} variant="contained" sx={{ mr: 25 }}>
                     <Link to="/stock" >
                         <p><b>Search</b></p>
                     </Link>
                 </Button>
-
-                {/* <form className={styles.form} onSubmit={handleOnSubmit}>
-                    <input
-                        type="text"
-                        name="search"
-                        id="search"
-                        placeholder="Search"
-                        className={styles.input}
-                        onChange={(e) => {
-                            search.set('sort', e.target.value);
-                            setSearch(search, {
-                                replace: true,
-                            });
-                        }}
-                    />
-                    <button type="submit" className={styles.search} tabIndex={-1}>
-                        <AiOutlineSearch size={20} />
-                    </button>
-                </form> */}
             </div>
             <div className={styles.buttons}>
                 <Link to="/signin" className={styles.signin}>
