@@ -1,6 +1,29 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+
+
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: '#78909c',
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        // backgroundColor: '#3F4E4F',
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
 
 interface LiveStockInterface {
     StockName: string;
@@ -55,12 +78,12 @@ export const LiveTable = () => {
                     <TableHead >
                         <TableRow>
                             {columns.map((column) => (
-                                <TableCell
+                                <StyledTableCell
                                     key={column.id}
                                     style={{ minWidth: column.minWidth }}
                                 >
                                     {column.label}
-                                </TableCell>
+                                </StyledTableCell>
                             ))}
                         </TableRow>
                     </TableHead>
@@ -68,16 +91,16 @@ export const LiveTable = () => {
                         {liveStockData
                             .map((row: any) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.StockName}>
+                                    <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.StockName}>
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
-                                                <TableCell key={column.id} >
+                                                <StyledTableCell key={column.id} >
                                                     {value}
-                                                </TableCell>
+                                                </StyledTableCell>
                                             );
                                         })}
-                                    </TableRow>
+                                    </StyledTableRow>
                                 );
                             })}
                     </TableBody>

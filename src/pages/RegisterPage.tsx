@@ -51,7 +51,7 @@ export default function RegisterPage() {
     const path = searchParams.get('redirect');
     if (isSuccess) {
       navigate(path ?? '/signin');
-      alert('Successfully registered');
+      alert('Successfully registered! Please sign in to proceed.');
     }
   }, [isError, isSuccess, searchParams]);
 

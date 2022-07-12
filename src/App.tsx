@@ -31,8 +31,8 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="/stock" element={<StockPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/" element={<ProtectedRoute />}>
+              <Route path="/profile" element={<ProfilePage />} />
               <Route path="/portfolio" element={<Portfolio />} />
             </Route>
           </Route>

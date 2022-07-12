@@ -10,7 +10,6 @@ type userStorage = {
 }
 const initialFormData = Object.freeze({
     scrip: "",
-    type: "",
     total: 0,
     price: 0
 });
@@ -41,7 +40,7 @@ export const EditPortfolioItem = () => {
     const handleEditPortfolioItem = (e: any) => {
         const rawToken = Storage.load("user");
         const userToken: userStorage = rawToken ? JSON.parse(rawToken) : "";
-        const data = `{"username": "${userToken.username}", "scrip": "${formData.scrip}", "type": "${formData.type}", "total": ${formData.total}, "price": ${formData.price}}`
+        const data = `{"username": "${userToken.username}", "scrip": "${formData.scrip}", "total": ${formData.total}, "price": ${formData.price}}`
         axios.patch(
             `http://localhost:8080/api/admin/portfolios/${userToken.username}`,
             data,
@@ -52,7 +51,7 @@ export const EditPortfolioItem = () => {
 
     return (
         <div>
-            <Button variant="outlined" color="primary" size="small" onClick={() => { handleClickOpen }}>
+            <Button variant="outlined" color="primary" size="small" sx={{ backgroundColor: 'whitesmoke' }} onClick={() => { handleClickOpen }}>
                 <EditRounded />
             </Button>
             <Dialog open={open} onClose={handleClose}>
@@ -60,7 +59,6 @@ export const EditPortfolioItem = () => {
                 <DialogActions>
                     <FormGroup >
                         <TextField name="scrip" label="Scrip" required onChange={handleFormChange} />
-                        <TextField name="type" label="Type" required onChange={handleFormChange} />
                         <TextField name="total" label="Total" required onChange={handleFormChange} />
                         <TextField name="price" label="Price" required onChange={handleFormChange} />
                         <Button onClick={handleEditPortfolioItem}> Add</Button>

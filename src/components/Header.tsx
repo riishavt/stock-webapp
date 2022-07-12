@@ -1,18 +1,84 @@
-import { Home } from '@mui/icons-material';
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { Autocomplete, Badge, Box, Button, createTheme, CssBaseline, Divider, IconButton, List, ListItemButton, ListItemIcon, ListItemText, styled, TextField, Toolbar, Typography } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiDrawer from '@mui/material/Drawer';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { setScrip } from '../redux/features/searchSlice';
 import { useAppSelector } from '../redux/hooks';
 import { useAppDispatch } from '../redux/hooks/search';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PeopleIcon from '@mui/icons-material/People';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import LayersIcon from '@mui/icons-material/Layers';
 
 import styles from './Header.module.css';
+import React from 'react';
+
+const drawerWidth: number = 240;
+
+interface AppBarProps extends MuiAppBarProps {
+    open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+        '& .MuiDrawer-paper': {
+            position: 'relative',
+            whiteSpace: 'nowrap',
+            width: drawerWidth,
+            transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            boxSizing: 'border-box',
+            ...(!open && {
+                overflowX: 'hidden',
+                transition: theme.transitions.create('width', {
+                    easing: theme.transitions.easing.sharp,
+                    duration: theme.transitions.duration.leavingScreen,
+                }),
+                width: theme.spacing(7),
+                [theme.breakpoints.up('sm')]: {
+                    width: theme.spacing(9),
+                },
+            }),
+        },
+    }),
+);
+
+const mdTheme = createTheme();
+
+
 
 export function Header() {
     const { user } = useAppSelector((state) => state.userSlice);
 
     const [search, setSearch] = useState("");
     const dispatch = useAppDispatch()
+    const [open, setOpen] = React.useState(true);
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
 
     const handleOnSubmit = (e: any) => {
         e.preventDefault();
@@ -26,58 +92,184 @@ export function Header() {
     }
 
     return (
-        <header className={styles.container}>
-            <div className={styles.content}>
-                <Link to="/">
-                    <Home sx={{ fontSize: 55 }} />
 
-                </Link>
-
-                <Autocomplete
-                    id="combo-box-demo"
-                    options={stockNameData}
-                    getOptionLabel={(option) => option.label}
-                    style={{ width: 300 }}
-                    onChange={(e, value: any) => {
-                        handleSearch(value.label)
-                    }
-                    }
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Search"
-                            variant="outlined"
-                            InputProps={{
-                                ...params.InputProps,
+        <div >
+            <CssBaseline />
+            <div>
+                <AppBar position="absolute" open={open} sx={{ backgroundColor: '#78909c' }}>
+                    <Toolbar
+                        sx={{
+                            pr: '24px', // keep right padding when drawer closed
+                        }}
+                    >
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={toggleDrawer}
+                            sx={{
+                                marginRight: '36px',
+                                ...(open && { display: 'none' }),
                             }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography
+                            component="h1"
+                            variant="h6"
+                            color="inherit"
+                            noWrap
+                            sx={{ flexGrow: 1 }}
+                        >
+                            NEPSE WEBAPP
+                        </Typography>
+                        <Autocomplete
+                            id="combo-box-demo"
+                            options={stockNameData}
+                            getOptionLabel={(option) => option.label}
+                            style={{ width: 300 }}
+                            onChange={(e, value: any) => {
+                                handleSearch(value.label)
+                            }
+                            }
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Search"
+                                    variant="outlined"
+                                    InputProps={{
+                                        ...params.InputProps,
+                                    }}
+                                />
+                            )}
                         />
-                    )}
-                />
 
-                <Button onClick={handleOnSubmit} variant="contained" sx={{ mr: 25 }}>
-                    <Link to="/stock" >
-                        <p><b>Search</b></p>
-                    </Link>
-                </Button>
+                        <Button onClick={handleOnSubmit} variant="contained" sx={{ mr: 25 }}>
+                            <Link to="/stock" >
+                                <p><b>Search</b></p>
+                            </Link>
+                        </Button>
+
+                        <IconButton color="inherit">
+                            <Link to="/signin" className={styles.signin}>
+                                <Typography variant="h6" color="inherit">
+                                    {user ? user.username : 'Sign in'}
+                                </Typography>
+                            </Link>
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
             </div>
-            <Button variant="contained" color="primary" size="small">
-                <Link to="/signin" className={styles.signin}>
-                    <p>
-                        <span>{user ? user.username : 'Sign in'}</span>
-                    </p>
-                    <p>
-                        <b> Accounts</b>
-                    </p>
-                </Link>
-            </Button>
-            <Button variant="contained" color="primary" size="small">
-                <Link to="/portfolio" className={styles.order}>
-                    <p><b>Portfolio</b></p>
-                </Link>
-            </Button>
-        </header>
+            <div>
+                <Drawer variant="permanent" open={open}>
+                    <Toolbar
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'flex-end',
+                            px: [1],
+                        }}
+                    >
+                        <IconButton onClick={toggleDrawer}>
+                            <ChevronLeftIcon />
+                        </IconButton>
+                    </Toolbar>
+                    <Divider />
+                    <List component="nav" sx={{ backgroundColor: '#90caf9', }}>
+                        {mainListItems}
+                        <Divider sx={{ my: 1 }} />
+                        {/* Secondary Items*/}
+                    </List>
+                </Drawer>
+            </div>
+        </div>
+        // <header className={styles.container}>
+        //     <div className={styles.content}>
+        //         <Link to="/">
+        //             <Home sx={{ fontSize: 55 }} />
+
+        //         </Link>
+
+        //         <Autocomplete
+        //             id="combo-box-demo"
+        //             options={stockNameData}
+        //             getOptionLabel={(option) => option.label}
+        //             style={{ width: 300 }}
+        //             onChange={(e, value: any) => {
+        //                 handleSearch(value.label)
+        //             }
+        //             }
+        //             renderInput={(params) => (
+        //                 <TextField
+        //                     {...params}
+        //                     label="Search"
+        //                     variant="outlined"
+        //                     InputProps={{
+        //                         ...params.InputProps,
+        //                     }}
+        //                 />
+        //             )}
+        //         />
+
+        //         <Button onClick={handleOnSubmit} variant="contained" sx={{ mr: 25 }}>
+        //             <Link to="/stock" >
+        //                 <p><b>Search</b></p>
+        //             </Link>
+        //         </Button>
+        //     </div>
+        //     <Button variant="contained" color="primary" size="small">
+        //         <Link to="/signin" className={styles.signin}>
+        //             <p>
+        //                 <span>{user ? user.username : 'Sign in'}</span>
+        //             </p>
+        //             <p>
+        //                 <b> Accounts</b>
+        //             </p>
+        //         </Link>
+        //     </Button>
+        //     <Button variant="contained" color="primary" size="small">
+        //         <Link to="/portfolio" className={styles.order}>
+        //             <p><b>Portfolio</b></p>
+        //         </Link>
+        //     </Button>
+        // </header>
     );
 }
+const mainListItems = (
+    <React.Fragment>
+        <Link to="/">
+            <ListItemButton>
+                <ListItemIcon>
+                    <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary="Dashboard" />
+            </ListItemButton>
+        </Link>
+        <Link to="/portfolio">
+            <ListItemButton>
+                <ListItemIcon>
+                    <LayersIcon />
+                </ListItemIcon>
+                <ListItemText primary="Portfolio" />
+            </ListItemButton>
+        </Link>
+        <Link to="/profile">
+            <ListItemButton>
+                <ListItemIcon>
+                    <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+            </ListItemButton>
+        </Link>
+        <ListItemButton>
+            <ListItemIcon>
+                <BarChartIcon />
+            </ListItemIcon>
+            <ListItemText primary="Predictions" />
+        </ListItemButton>
+    </React.Fragment>
+);
+
 
 const stockNameData = [
     {

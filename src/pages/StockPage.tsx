@@ -1,4 +1,4 @@
-import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks/search";
@@ -117,61 +117,69 @@ export const StockPage = () => {
         setIsChartLoading(true);
         fetchHistoricData();
 
-    }, [sector]);
+    }, [scrip, sector]);
     return (
         <div>
-            <h1>{scrip}</h1>
+            <Container sx={{ padding: 2, display: 'flex', mt: '-200px', ml: '250px' }}>
+                <Grid>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: '2.5rem' }}>
+                        {scrip}
+                    </Typography>
+                    {!isFindSectorLoading ?
+                        <div>
+                            <Grid item xs={8}>
+                                {!isLoading ?
+                                    <TableContainer sx={{ maxHeight: 440 }}>
+                                        <Table stickyHeader aria-label="sticky table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Stock Name</TableCell>
+                                                    <TableCell>Last Price</TableCell>
+                                                    <TableCell>Turn Over</TableCell>
+                                                    <TableCell>Change</TableCell>
+                                                    <TableCell>High</TableCell>
+                                                    <TableCell>Low</TableCell>
+                                                    <TableCell>Open</TableCell>
+                                                    <TableCell>Share Traded</TableCell>
 
-            {!isLoading ?
-                <TableContainer sx={{ maxHeight: 440 }}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Stock Name</TableCell>
-                                <TableCell>Last Price</TableCell>
-                                <TableCell>Turn Over</TableCell>
-                                <TableCell>Change</TableCell>
-                                <TableCell>High</TableCell>
-                                <TableCell>Low</TableCell>
-                                <TableCell>Open</TableCell>
-                                <TableCell>Share Traded</TableCell>
-
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableCell>{stockData.StockName}</TableCell>
-                            <TableCell>{stockData.LastPrice}</TableCell>
-                            <TableCell>{stockData.TurnOver}</TableCell>
-                            <TableCell>{stockData.Change}</TableCell>
-                            <TableCell>{stockData.High}</TableCell>
-                            <TableCell>{stockData.Low}</TableCell>
-                            <TableCell>{stockData.Open}</TableCell>
-                            <TableCell>{stockData.ShareTraded}</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                <TableCell>{stockData.StockName}</TableCell>
+                                                <TableCell>{stockData.LastPrice}</TableCell>
+                                                <TableCell>{stockData.TurnOver}</TableCell>
+                                                <TableCell>{stockData.Change}</TableCell>
+                                                <TableCell>{stockData.High}</TableCell>
+                                                <TableCell>{stockData.Low}</TableCell>
+                                                <TableCell>{stockData.Open}</TableCell>
+                                                <TableCell>{stockData.ShareTraded}</TableCell>
 
 
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                : <div>Loading...</div>}
-            <div>
-                {!isChartLoading && !isFindSectorLoading ?
-
-                    <Chart {...options}>
-                        <CandlestickSeries
-                            data={historicData.slice(0, 500)}
-                        />
-                        <HistogramSeries
-                            data={volumeData}
-                            priceScaleId=""
-                            color="#26a69a"
-                            priceFormat={{ type: 'volume' }}
-                            scaleMargins={{ top: 0.9, bottom: 0 }}
-                        />
-                    </Chart>
-                    : <div>Loading...</div>}
-            </div>
-            <Button variant="contained" color="primary" onClick={() => console.log(historicData.slice(0, 500))}>Click</Button>
-
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                    : <div>Loading...</div>}
+                            </Grid>
+                            <Grid item xs={8}>
+                                {!isChartLoading ?
+                                    <Chart {...options}>
+                                        <CandlestickSeries
+                                            data={historicData.slice(0, 500)}
+                                        />
+                                        <HistogramSeries
+                                            data={volumeData}
+                                            priceScaleId=""
+                                            color="#26a69a"
+                                            priceFormat={{ type: 'volume' }}
+                                            scaleMargins={{ top: 0.9, bottom: 0 }}
+                                        />
+                                    </Chart>
+                                    : <div>Loading...</div>}
+                            </Grid>
+                        </div>
+                        : <div>Loading...</div>}
+                </Grid>
+            </Container>
         </div>
     )
 }
@@ -197,7 +205,7 @@ const options = {
     width: 800,
     height: 500,
     layout: {
-        backgroundColor: '#000000',
+        backgroundColor: '#faf5f5',
         textColor: 'rgba(255, 255, 255, 0.9)',
     },
     grid: {
