@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useSignupMutation } from '../redux/services/userApi';
 import { Alert } from '../components/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -59,7 +59,6 @@ export default function RegisterPage() {
     <div className={styles.container}>
       <Link to="/">
         <img
-          // src="./src/assets/amazon-logo.png"
           alt="Asset Placeholder"
           className={styles.logo}
         />

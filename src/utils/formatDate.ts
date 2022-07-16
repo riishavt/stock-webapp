@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
 
-export function formatDate(date: string) {
-  return format(new Date(date), 'MMM dd yyyy');
+export function formatDate(date: any) {
+  return new Date(date * 1000).toLocaleDateString('en-US');
 }

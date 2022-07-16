@@ -1,6 +1,3 @@
-import React from "react";
-import axios from "axios";
-
 type DataProps = {
   method: string;
   url: string;

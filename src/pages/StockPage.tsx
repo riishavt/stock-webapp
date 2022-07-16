@@ -5,6 +5,7 @@ import { useAppSelector } from "../redux/hooks/search";
 import { CrosshairMode } from 'lightweight-charts';
 import { Chart, CandlestickSeries, HistogramSeries } from 'lightweight-charts-react-wrapper';
 import { forEach } from "lodash";
+import { formatDate } from "../utils/formatDate";
 
 
 interface StockInterface {
@@ -78,7 +79,7 @@ export const StockPage = () => {
                         return {
                             //     { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
                             // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
-                            time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
+                            time: formatDate(item.Time),
                             open: item.Open,
                             high: item.High,
                             low: item.Low,

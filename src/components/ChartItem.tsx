@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CrosshairMode } from 'lightweight-charts';
 import { Chart, CandlestickSeries } from 'lightweight-charts-react-wrapper';
 import axios from "axios";
+import { formatDate } from "../utils/formatDate";
 
 
 export const ChartItem = () => {
@@ -21,7 +22,7 @@ export const ChartItem = () => {
                         .map((item: any) => {
                             return {
                                 // { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
-                                time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
+                                time: formatDate(item.Time),
                                 open: item.Open,
                                 high: item.High,
                                 low: item.Low,

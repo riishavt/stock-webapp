@@ -1,4 +1,4 @@
-import { Autocomplete, Badge, Box, Button, createTheme, CssBaseline, Divider, IconButton, List, ListItemButton, ListItemIcon, ListItemText, styled, TextField, Toolbar, Typography } from '@mui/material';
+import { Autocomplete, Button, createTheme, CssBaseline, Divider, IconButton, List, ListItemButton, ListItemIcon, ListItemText, styled, TextField, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -183,56 +183,6 @@ export function Header() {
                 </Drawer>
             </div>
         </div>
-        // <header className={styles.container}>
-        //     <div className={styles.content}>
-        //         <Link to="/">
-        //             <Home sx={{ fontSize: 55 }} />
-
-        //         </Link>
-
-        //         <Autocomplete
-        //             id="combo-box-demo"
-        //             options={stockNameData}
-        //             getOptionLabel={(option) => option.label}
-        //             style={{ width: 300 }}
-        //             onChange={(e, value: any) => {
-        //                 handleSearch(value.label)
-        //             }
-        //             }
-        //             renderInput={(params) => (
-        //                 <TextField
-        //                     {...params}
-        //                     label="Search"
-        //                     variant="outlined"
-        //                     InputProps={{
-        //                         ...params.InputProps,
-        //                     }}
-        //                 />
-        //             )}
-        //         />
-
-        //         <Button onClick={handleOnSubmit} variant="contained" sx={{ mr: 25 }}>
-        //             <Link to="/stock" >
-        //                 <p><b>Search</b></p>
-        //             </Link>
-        //         </Button>
-        //     </div>
-        //     <Button variant="contained" color="primary" size="small">
-        //         <Link to="/signin" className={styles.signin}>
-        //             <p>
-        //                 <span>{user ? user.username : 'Sign in'}</span>
-        //             </p>
-        //             <p>
-        //                 <b> Accounts</b>
-        //             </p>
-        //         </Link>
-        //     </Button>
-        //     <Button variant="contained" color="primary" size="small">
-        //         <Link to="/portfolio" className={styles.order}>
-        //             <p><b>Portfolio</b></p>
-        //         </Link>
-        //     </Button>
-        // </header>
     );
 }
 const mainListItems = (
