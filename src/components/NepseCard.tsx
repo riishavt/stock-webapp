@@ -1,5 +1,5 @@
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
-import { Card, CardContent, CardHeader, Container, Grid, Icon, Stack, Typography } from "@mui/material";
+import { Card, CardContent, CardHeader, CircularProgress, Container, Grid, Icon, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -137,7 +137,7 @@ export const NepseCard = () => {
                         </CardContent>
                     </Card>
                 </Grid>
-                : <div> ...Loading </div>}
+                : <CircularProgress />}
         </div>
     )
 }

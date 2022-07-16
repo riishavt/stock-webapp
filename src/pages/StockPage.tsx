@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Button, CircularProgress, Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks/search";
@@ -159,7 +159,7 @@ export const StockPage = () => {
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
-                                    : <div>Loading...</div>}
+                                    : <CircularProgress />}
                             </Grid>
                             <Grid item xs={8}>
                                 {!isChartLoading ?
@@ -175,10 +175,10 @@ export const StockPage = () => {
                                             scaleMargins={{ top: 0.9, bottom: 0 }}
                                         />
                                     </Chart>
-                                    : <div>Loading...</div>}
+                                    : <CircularProgress />}
                             </Grid>
                         </div>
-                        : <div>Loading...</div>}
+                        : <CircularProgress />}
                 </Grid>
             </Container>
         </div>

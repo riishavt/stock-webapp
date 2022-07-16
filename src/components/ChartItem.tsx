@@ -3,6 +3,7 @@ import { CrosshairMode } from 'lightweight-charts';
 import { Chart, CandlestickSeries } from 'lightweight-charts-react-wrapper';
 import axios from "axios";
 import { formatDate } from "../utils/formatDate";
+import { CircularProgress } from "@mui/material";
 
 
 export const ChartItem = () => {
@@ -67,7 +68,7 @@ export const ChartItem = () => {
 
     return (
         <div >
-            {isChartLoading ? <div>Loading...</div> :
+            {isChartLoading ? <CircularProgress /> :
                 <Chart {...options}>
                     <CandlestickSeries
                         data={fetchedData}

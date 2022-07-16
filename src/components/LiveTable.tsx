@@ -1,4 +1,4 @@
-import { styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from "@mui/material";
+import { CircularProgress, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -106,7 +106,7 @@ export const LiveTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            : <p>Loading...</p>}
+            : <CircularProgress />}
         </div>
     )
 }
