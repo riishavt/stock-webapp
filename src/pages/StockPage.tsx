@@ -112,8 +112,6 @@ export const StockPage = () => {
         findSector(scrip);
     }, [scrip]);
 
-
-
     useEffect(() => {
         setIsChartLoading(true);
         fetchHistoricData();
@@ -162,7 +160,7 @@ export const StockPage = () => {
                                     : <CircularProgress />}
                             </Grid>
                             <Grid item xs={8}>
-                                {!isChartLoading ?
+                                {!isChartLoading && !isFindSectorLoading ?
                                     <Chart {...options}>
                                         <CandlestickSeries
                                             data={historicData.slice(0, 500)}

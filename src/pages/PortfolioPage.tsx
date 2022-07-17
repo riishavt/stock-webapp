@@ -1,9 +1,9 @@
-import { DeleteOutlined } from "@mui/icons-material";
-import { Button, Container, Stack, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from "@mui/material";
+import { DeleteOutlined, EditRounded } from "@mui/icons-material";
+import { Button, Container, Dialog, DialogTitle, Stack, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
 import axios from "axios";
+import React from "react";
 import { useEffect, useState } from "react";
 import { AddPortfolioItem } from "../components/AddPortfolioItem";
-import { EditPortfolioItem } from "../components/EditPortfolioItem";
 import { Storage } from "../utils/storage";
 
 interface PortfolioInterface {
@@ -45,6 +45,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
+const initialFormData = Object.freeze({
+    total: 0,
+    price: 0
+});
 
 
 export const Portfolio = () => {
@@ -52,6 +56,7 @@ export const Portfolio = () => {
     const [portfolioData, setPortfolioData] = useState<PortfolioInterface[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState<userStorage>({ token: "", username: "" });
+    const [formData, updateFormData] = React.useState(initialFormData)
 
 
     const columns = [
@@ -66,9 +71,18 @@ export const Portfolio = () => {
         { id: "lastPrice", label: "ltp", minWidth: 100 },
         { id: "open", label: "open", minWidth: 100 },
     ];
+    const handleChange = (e: any) => {
+        e.preventDefault()
+        updateFormData({
+            ...formData,
+
+            // Trimming any whitespace
+            [e.target.name]: e.target.value.trim()
+        });
+        console.log(formData);
+    };
 
     useEffect(() => {
-        setIsLoading(true);
         getPortfolio()
     }, []);
 
@@ -88,23 +102,18 @@ export const Portfolio = () => {
         }
     }
 
-    // const handleEditPortfolioItem = (username: string, scrip: string, type: string, total: number, price: number) => {
-    //     const data = `{"username": "${username}", "scrip": "${scrip}", "type": "${type}", "total": ${total}, "price": ${price}}`
-    //     axios.patch(
-    //         `http://localhost:8080/api/admin/portfolios/${username}`,
-    //         data,
-    //         { headers: { Authorization: `Bearer ${currentUser.token}` } }
-    //     )
-    //     return (
-    //         <div>
-    //             <Dialog open={true}>
-    //                 <DialogTitle>Hello</DialogTitle>
-    //             </Dialog>
-    //         </div>
+    const handleEditPortfolioItem = (scrip: string) => {
+        const rawToken = Storage.load("user");
+        const userToken: userStorage = rawToken ? JSON.parse(rawToken) : "";
+        const data = `{"username": "${userToken.username}", "scrip": "${scrip}", "total": ${formData.total}, "price": ${formData.price}}`
+        axios.patch(
+            `http://localhost:8080/api/admin/portfolios/${userToken.username}`,
+            data,
+            { headers: { Authorization: `Bearer ${userToken.token}` } }
+        )
+        window.location.reload();
 
-    //     )
-
-    // }
+    }
 
     const handleDeletePortfolioItem = (username: string, scrip: string) => {
         axios.get(`http://localhost:8080/api/admin/portfolios/${username}/${scrip}`, { headers: { Authorization: `Bearer ${currentUser.token}` } })
@@ -120,14 +129,14 @@ export const Portfolio = () => {
                             <TableRow>
                                 {columns.map((column) => (
                                     <StyledTableCell
-                                        key={column.id}
+                                        key={column.label}
                                         style={{ minWidth: column.minWidth }}
                                     >
                                         {column.label}
                                     </StyledTableCell>
                                 ))}
-                                <StyledTableCell key={1000}>
-                                    Profit/Loss
+                                <StyledTableCell >
+                                    Daily Profit/Loss
                                 </StyledTableCell>
                             </TableRow>
                         </TableHead>
@@ -135,16 +144,17 @@ export const Portfolio = () => {
                             {portfolioData
                                 .map((row: any) => {
                                     return (
-                                        <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.scrip}>
-                                            {columns.map((column) => {
-                                                const value = row[column.id];
-                                                return (
-                                                    <StyledTableCell key={column.id} >
-                                                        {value}
-                                                    </StyledTableCell>
-                                                );
-                                            })}
-                                            <StyledTableCell>
+                                        <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.ID}>
+                                            <StyledTableCell key={row.ID}>{row.scrip}</StyledTableCell>
+                                            <StyledTableCell key={row.ID}>
+                                                <TextField id="portfolio-total" name="total" type="number" label={row.total} onChange={handleChange} variant="filled" />
+                                            </StyledTableCell>
+                                            <StyledTableCell key={row.ID}>
+                                                <TextField id="portfolio-total" name="price" type="number" label={row.price} onChange={handleChange} variant="filled" />
+                                            </StyledTableCell>
+                                            <StyledTableCell key={row.ID}>{row.lastPrice}</StyledTableCell>
+                                            <StyledTableCell key={row.ID}>{row.open}</StyledTableCell>
+                                            <StyledTableCell key={row.ID}>
                                                 {row.lastPrice > row.open
                                                     ? <span style={{ color: 'green' }}>
                                                         {(row.lastPrice - row.open).toFixed(2)}
@@ -153,12 +163,9 @@ export const Portfolio = () => {
                                                         {(row.lastPrice - row.open).toFixed(2)}
                                                     </span>}
                                             </StyledTableCell>
-                                            <EditPortfolioItem />
-                                            {/* <Button variant="outlined" color="primary" size="small" onClick={() => {
-                                        handleEditPortfolioItem(row.username, row.scrip, row.type, row.total, row.price);
-                                    }}>
-                                        <EditRounded />
-                                    </Button> */}
+                                            <Button variant="outlined" color="primary" size="small" onClick={() => handleEditPortfolioItem(row.scrip,)}>
+                                                <EditRounded />
+                                            </Button>
                                             <Button variant="outlined" color="secondary" size="small" sx={{ backgroundColor: 'whitesmoke' }} onClick={() => {
                                                 handleDeletePortfolioItem("sachin", row.scrip);
                                             }}>

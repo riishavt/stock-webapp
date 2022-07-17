@@ -125,9 +125,13 @@ export function Header() {
                         </Typography>
                         <Autocomplete
                             id="combo-box-demo"
+                            noOptionsText="No results"
                             options={stockNameData}
                             getOptionLabel={(option) => option.label}
-                            style={{ width: 300 }}
+                            style={{
+                                minWidth: 500,
+                                marginRight: '24px'
+                            }}
                             onChange={(e, value: any) => {
                                 handleSearch(value.label)
                             }
@@ -168,6 +172,7 @@ export function Header() {
                             alignItems: 'center',
                             justifyContent: 'flex-end',
                             px: [1],
+                            backgroundColor: '#78909c',
                         }}
                     >
                         <IconButton onClick={toggleDrawer}>
