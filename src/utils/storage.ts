@@ -1,17 +1,17 @@
 export class Storage {
   static save(key: string, value: string) {
-    return localStorage.setItem(key, value);
+    return sessionStorage.setItem(key, value);
   }
 
   static load(key: string) {
-    return localStorage.getItem(key);
+    return sessionStorage.getItem(key);
   }
 
   static remove(key: string) {
-    return localStorage.removeItem(key);
+    return sessionStorage.removeItem(key);
   }
 
   static clear() {
-    return localStorage.clear();
+    return sessionStorage.clear();
   }
 }
