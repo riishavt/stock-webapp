@@ -10,13 +10,14 @@ import { Portfolio } from './pages/PortfolioPage';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
 import { StockPage } from './pages/StockPage';
+import { TopGainersLosers } from './pages/TopGainerPage';
 
 const darkTheme = createTheme({
 
   palette: {
 
     background: {
-      default: '#3F4E4F',
+      default: '#121212',
     },
     primary: {
       main: '#34B3F1',
@@ -25,7 +26,7 @@ const darkTheme = createTheme({
       main: '#827397',
     },
     text: {
-      primary: '#EEEEEE',
+      primary: '#777777',
       secondary: '#000000',
     }
 
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="/stock" element={<StockPage />} />
+            <Route path="/gainer" element={<TopGainersLosers />} />
             <Route path="/" element={<ProtectedRoute />}>
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/portfolio" element={<Portfolio />} />

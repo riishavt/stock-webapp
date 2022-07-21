@@ -15,6 +15,8 @@ import LayersIcon from '@mui/icons-material/Layers';
 
 import styles from './Header.module.css';
 import React from 'react';
+import { PieChartOutline } from '@mui/icons-material';
+import { color } from '@mui/system';
 
 const drawerWidth: number = 240;
 
@@ -96,7 +98,7 @@ export function Header() {
         <div >
             <CssBaseline />
             <div>
-                <AppBar position="absolute" open={open} sx={{ backgroundColor: '#78909c' }}>
+                <AppBar position="absolute" open={open} sx={{ backgroundColor: '#4D6C96' }}>
                     <Toolbar
                         sx={{
                             pr: '24px', // keep right padding when drawer closed
@@ -130,7 +132,9 @@ export function Header() {
                             getOptionLabel={(option) => option.label}
                             style={{
                                 minWidth: 500,
-                                marginRight: '24px'
+                                marginRight: '24px',
+                                textDecorationColor: '#000000',
+
                             }}
                             onChange={(e, value: any) => {
                                 handleSearch(value.label)
@@ -172,7 +176,7 @@ export function Header() {
                             alignItems: 'center',
                             justifyContent: 'flex-end',
                             px: [1],
-                            backgroundColor: '#78909c',
+                            backgroundColor: '#4D6C96',
                         }}
                     >
                         <IconButton onClick={toggleDrawer}>
@@ -222,6 +226,14 @@ const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Predictions" />
         </ListItemButton>
+        <Link to="/gainer">
+            <ListItemButton>
+                <ListItemIcon>
+                    <PieChartOutline />
+                </ListItemIcon>
+                <ListItemText primary="Gainer" />
+            </ListItemButton>
+        </Link>
     </React.Fragment>
 );
 
