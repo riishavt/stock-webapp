@@ -65,11 +65,11 @@ export const Portfolio = () => {
         // { id: "UpdatedAt", label: "UpdatedAt", minWidth: 100 },
         // { id: "DeletedAt", label: "DeletedAt", minWidth: 100 },
         // { id: "username", label: "username", minWidth: 100 },
-        { id: "scrip", label: "scrip", minWidth: 100 },
-        { id: "total", label: "total", minWidth: 100 },
-        { id: "price", label: "price", minWidth: 100 },
-        { id: "lastPrice", label: "ltp", minWidth: 100 },
-        { id: "open", label: "open", minWidth: 100 },
+        { id: "scrip", label: "Scrip", minWidth: 100 },
+        { id: "total", label: "Total", minWidth: 100 },
+        { id: "price", label: "Price", minWidth: 100 },
+        { id: "lastPrice", label: "LTP", minWidth: 100 },
+        { id: "open", label: "Open", minWidth: 100 },
     ];
     const handleChange = (e: any) => {
         e.preventDefault()
@@ -147,10 +147,10 @@ export const Portfolio = () => {
                                         <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.ID}>
                                             <StyledTableCell key={row.ID}>{row.scrip}</StyledTableCell>
                                             <StyledTableCell key={row.ID}>
-                                                <TextField id="portfolio-total" name="total" type="number" label={row.total} onChange={handleChange} variant="filled" />
+                                                <TextField id="portfolio-total" name="total" type="number" label={row.total} onChange={handleChange} variant="filled" sx={{ backgroundColor: 'whitesmoke' }} />
                                             </StyledTableCell>
                                             <StyledTableCell key={row.ID}>
-                                                <TextField id="portfolio-total" name="price" type="number" label={row.price} onChange={handleChange} variant="filled" />
+                                                <TextField id="portfolio-total" name="price" type="number" label={row.price} onChange={handleChange} variant="filled" sx={{ backgroundColor: 'whitesmoke' }} />
                                             </StyledTableCell>
                                             <StyledTableCell key={row.ID}>{row.lastPrice}</StyledTableCell>
                                             <StyledTableCell key={row.ID}>{row.open}</StyledTableCell>

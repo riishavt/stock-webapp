@@ -1,5 +1,6 @@
 import { Card, Container, Grid, Stack, Typography } from '@mui/material';
 import { ChartItem } from '../components/ChartItem';
+import GainerLoserCard from '../components/GainerLoserCard';
 import { IndexTable } from '../components/IndexTable';
 import { LiveTable } from '../components/LiveTable';
 import { NepseCard } from '../components/NepseCard';
@@ -11,11 +12,7 @@ export default function HomePage() {
                 <Grid container spacing={12}>
                     <Stack spacing={25} direction="row" sx={{ alignItems: 'center', ml: '190px', mt: '120px' }}>
                         <NepseCard />
-                        <Card variant='outlined'>
-                            <Typography variant="h5" component="div">
-                                Total Portfolio Value
-                            </Typography>
-                        </Card>
+                        <GainerLoserCard />
                         <Card variant='outlined'>
                             <Typography variant="h5" component="div">
                                 Prediction
