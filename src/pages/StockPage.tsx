@@ -43,20 +43,6 @@ export const StockPage = () => {
     const [stockData, setStockData] = useState<StockInterface>({} as StockInterface);
     const [historicData, setHistoricData] = useState<any[]>([]);
     const [volumeData, setVolumeData] = useState<any[]>([]);
-    const [sector, setSector] = useState<string>("");
-    const [isFindSectorLoading, setIsFindSectorLoading] = useState(true);
-
-    const findSector = (scripName: string) => {
-        forEach(sectors, (sector, value) => {
-
-            if (sector.includes(scripName)) {
-                console.log(value)
-                setSector(value);
-                setIsFindSectorLoading(false);
-            }
-        })
-
-    }
 
     const fetchStockData = async () => {
         try {
@@ -72,33 +58,39 @@ export const StockPage = () => {
 
     const fetchHistoricData = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/nepseHistory/${sector}/${scrip}`)
-            if (response.status === 200) {
-                setHistoricData(
-                    response.data.map((item: any) => {
-                        return {
-                            //     { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
-                            // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
-                            time: formatDate(item.Time),
-                            open: item.Open,
-                            high: item.High,
-                            low: item.Low,
-                            close: item.Close,
-                        }
+            forEach(sectors, async (sector, value) => {
+
+                if (sector.includes(scrip)) {
+                    const response = await axios.get(`http://localhost:8080/api/nepseHistory/${value}/${scrip}`)
+                    if (response.status === 200) {
+                        setHistoricData(
+                            response.data.map((item: any) => {
+                                return {
+                                    //     { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
+                                    // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
+                                    time: formatDate(item.Time),
+                                    open: item.Open,
+                                    high: item.High,
+                                    low: item.Low,
+                                    close: item.Close,
+                                }
+                            }
+                            )
+                        );
+                        setVolumeData(
+                            response.data.map((item: any) => {
+                                return {
+                                    //{ time: '2019-05-28', value: 59.57 },
+                                    time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
+                                    value: item.Volume,
+                                }
+                            })
+                        )
+                        setIsChartLoading(false);
                     }
-                    )
-                );
-                setVolumeData(
-                    response.data.map((item: any) => {
-                        return {
-                            //{ time: '2019-05-28', value: 59.57 },
-                            time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
-                            value: item.Volume,
-                        }
-                    })
-                )
-                setIsChartLoading(false);
-            }
+
+                }
+            })
 
         }
         catch (e) {
@@ -109,16 +101,14 @@ export const StockPage = () => {
     //using useReducer hook may solve this problem
 
     useEffect(() => {
-        setIsFindSectorLoading(true);
         fetchStockData();
-        findSector(scrip);
     }, [scrip]);
 
     useEffect(() => {
         setIsChartLoading(true);
         fetchHistoricData();
 
-    }, [scrip, sector]);
+    }, [scrip]);
     return (
         <div>
             <Container sx={{ padding: 2, display: 'flex', mt: '-200px', ml: '250px' }}>
@@ -126,59 +116,57 @@ export const StockPage = () => {
                     <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: '2.5rem' }}>
                         {scrip}
                     </Typography>
-                    {!isFindSectorLoading ?
-                        <div>
-                            <Grid item xs={8}>
-                                {!isLoading ?
-                                    <TableContainer sx={{ maxHeight: 440 }}>
-                                        <Table stickyHeader aria-label="sticky table">
-                                            <TableHead>
-                                                <TableRow>
-                                                    <TableCell>Stock Name</TableCell>
-                                                    <TableCell>Last Price</TableCell>
-                                                    <TableCell>Turn Over</TableCell>
-                                                    <TableCell>Change</TableCell>
-                                                    <TableCell>High</TableCell>
-                                                    <TableCell>Low</TableCell>
-                                                    <TableCell>Open</TableCell>
-                                                    <TableCell>Share Traded</TableCell>
+                    <div>
+                        <Grid item xs={8}>
+                            {!isLoading ?
+                                <TableContainer sx={{ maxHeight: 440 }}>
+                                    <Table stickyHeader aria-label="sticky table">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell>Stock Name</TableCell>
+                                                <TableCell>Last Price</TableCell>
+                                                <TableCell>Turn Over</TableCell>
+                                                <TableCell>Change</TableCell>
+                                                <TableCell>High</TableCell>
+                                                <TableCell>Low</TableCell>
+                                                <TableCell>Open</TableCell>
+                                                <TableCell>Share Traded</TableCell>
 
-                                                </TableRow>
-                                            </TableHead>
-                                            <TableBody>
-                                                <TableCell>{stockData.StockName}</TableCell>
-                                                <TableCell>{stockData.LastPrice}</TableCell>
-                                                <TableCell>{stockData.TurnOver}</TableCell>
-                                                <TableCell>{stockData.Change}</TableCell>
-                                                <TableCell>{stockData.High}</TableCell>
-                                                <TableCell>{stockData.Low}</TableCell>
-                                                <TableCell>{stockData.Open}</TableCell>
-                                                <TableCell>{stockData.ShareTraded}</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            <TableCell>{stockData.StockName}</TableCell>
+                                            <TableCell>{stockData.LastPrice}</TableCell>
+                                            <TableCell>{stockData.TurnOver}</TableCell>
+                                            <TableCell>{stockData.Change}</TableCell>
+                                            <TableCell>{stockData.High}</TableCell>
+                                            <TableCell>{stockData.Low}</TableCell>
+                                            <TableCell>{stockData.Open}</TableCell>
+                                            <TableCell>{stockData.ShareTraded}</TableCell>
 
 
-                                            </TableBody>
-                                        </Table>
-                                    </TableContainer>
-                                    : <CircularProgress />}
-                            </Grid>
-                            <Grid item xs={8}>
-                                {!isChartLoading && !isFindSectorLoading ?
-                                    <Chart {...options}>
-                                        <CandlestickSeries
-                                            data={historicData.slice(0, 500)}
-                                        />
-                                        <HistogramSeries
-                                            data={volumeData}
-                                            priceScaleId=""
-                                            color="#26a69a"
-                                            priceFormat={{ type: 'volume' }}
-                                            scaleMargins={{ top: 0.9, bottom: 0 }}
-                                        />
-                                    </Chart>
-                                    : <CircularProgress />}
-                            </Grid>
-                        </div>
-                        : <CircularProgress />}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                : <CircularProgress />}
+                        </Grid>
+                        <Grid item xs={8}>
+                            {!isChartLoading ?
+                                <Chart {...options}>
+                                    <CandlestickSeries
+                                        data={historicData}
+                                    />
+                                    <HistogramSeries
+                                        data={volumeData}
+                                        priceScaleId=""
+                                        color="#26a69a"
+                                        priceFormat={{ type: 'volume' }}
+                                        scaleMargins={{ top: 0.9, bottom: 0 }}
+                                    />
+                                </Chart>
+                                : <CircularProgress />}
+                        </Grid>
+                    </div>
                 </Grid>
             </Container>
         </div>
