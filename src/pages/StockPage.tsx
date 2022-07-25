@@ -106,6 +106,8 @@ export const StockPage = () => {
         }
     }
 
+    //using useReducer hook may solve this problem
+
     useEffect(() => {
         setIsFindSectorLoading(true);
         fetchStockData();
