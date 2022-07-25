@@ -57,12 +57,6 @@ export default function RegisterPage() {
 
   return (
     <div className={styles.container}>
-      <Link to="/">
-        <img
-          alt="Asset Placeholder"
-          className={styles.logo}
-        />
-      </Link>
       {isSuccess && (
         <Alert
           type="success"
@@ -129,20 +123,16 @@ export default function RegisterPage() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to="/signin">
-                  Already have an account? Sign in
+                  Already have an account?
+                  <Typography variant="body2" color="green" align='center'>
+                    Sign in
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
-      <footer className={styles.footer}>
-        <p>Already have an account?</p>
-        <Link to="/signin">
-          <p className={styles.link}>Sign In</p>
-        </Link>
-      </footer>
     </div>
   );
 }

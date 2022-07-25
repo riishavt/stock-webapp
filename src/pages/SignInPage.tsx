@@ -7,8 +7,8 @@ import { useSignInMutation } from '../redux/services/userApi';
 import { useForm } from 'react-hook-form';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import styles from './SignInPage.module.css';
-import { Copyright, Home } from '@mui/icons-material';
-import { Container, CssBaseline, Box, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid } from '@mui/material';
+import { Home } from '@mui/icons-material';
+import { Container, CssBaseline, Box, Avatar, Typography, TextField, Button, Grid } from '@mui/material';
 
 interface Inputs {
   username: string;
@@ -129,7 +129,6 @@ export default function SignInPage() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </div>
   );

@@ -1,9 +1,10 @@
+import { Button, Typography } from '@mui/material';
+import { Container } from '@mui/system';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userSlice } from '../redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
-import styles from './ProfilePage.module.css';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -19,17 +20,22 @@ export default function ProfilePage() {
   }, [user]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={styles.title}>Manage your account</h1>
-        <button
-          type="button"
-          className={styles.button}
+    <div>
+      <Container sx={{ padding: 2, display: 'flex', mt: '-80px', ml: '450px' }}>
+        {user ?
+          <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+            {user.username}
+          </Typography>
+          : <div>...Loading</div>}
+        <Button
+          variant="contained"
+          type="submit"
           onClick={handleOnSignOut}
         >
           Sign out
-        </button>
-      </div>
+        </Button>
+      </Container>
+
     </div>
   );
 }
