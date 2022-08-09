@@ -4,15 +4,13 @@ import { useForm } from 'react-hook-form';
 import { useSignupMutation } from '../redux/services/userApi';
 import { Alert } from '../components/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import styles from './RegisterPage.module.css';
-import { Copyright } from '@mui/icons-material';
-import { Container, CssBaseline, Box, Avatar, Typography, Grid, TextField, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Container, CssBaseline, Box, Avatar, Typography, Grid, TextField, Button } from '@mui/material';
 
 interface Inputs {
-  // name: string;
   username: string;
+  fullname: string;
+  email: string;
   password: string;
-  confirm: string;
 }
 
 interface Error {
@@ -35,6 +33,8 @@ export default function RegisterPage() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let username: string = data.get('username') as string;
+    let fullname: string = data.get('fullname') as string;
+    let email: string = data.get('email') as string;
     let password: string = data.get('password') as string;
     console.log({
       email: data.get('email'),
@@ -42,6 +42,8 @@ export default function RegisterPage() {
     });
     await signup({
       username,
+      fullname,
+      email,
       password
     });
   };
@@ -56,7 +58,7 @@ export default function RegisterPage() {
   }, [isError, isSuccess, searchParams]);
 
   return (
-    <div className={styles.container}>
+    <div>
       {isSuccess && (
         <Alert
           type="success"
@@ -69,7 +71,6 @@ export default function RegisterPage() {
           type="error"
           title="There was a problem"
           text="Username address already used"
-          className={styles.alert}
         />
       )}
       <Container component="main" maxWidth="xs">
@@ -98,6 +99,24 @@ export default function RegisterPage() {
                   label="Username"
                   name="username"
                   autoComplete="username"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="fullname"
+                  label="Fullname"
+                  name="fullname"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  name="email"
                 />
               </Grid>
               <Grid item xs={12}>

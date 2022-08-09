@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { useSignInMutation } from '../redux/services/userApi';
 import { useForm } from 'react-hook-form';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import styles from './SignInPage.module.css';
 import { Home } from '@mui/icons-material';
 import { Container, CssBaseline, Box, Avatar, Typography, TextField, Button, Grid } from '@mui/material';
 
@@ -63,16 +62,12 @@ export default function SignInPage() {
   }, [isError, isSuccess]);
 
   return (
-    <div className={styles.container}>
-      <Link to="/">
-        <Home />
-      </Link>
+    <div>
       {error && (
         <Alert
           type="error"
           title="There was a problem"
           text={(error as Error).data.message}
-          className={styles.alert}
         />
       )}
       <Container component="main" maxWidth="xs">
@@ -85,6 +80,9 @@ export default function SignInPage() {
             alignItems: 'center',
           }}
         >
+          <Link to="/">
+            <Home />
+          </Link>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -116,6 +114,7 @@ export default function SignInPage() {
               type="submit"
               fullWidth
               variant="contained"
+              color="success"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
