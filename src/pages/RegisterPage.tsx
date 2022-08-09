@@ -95,6 +95,7 @@ export default function RegisterPage() {
                 <TextField
                   required
                   fullWidth
+                  type="text"
                   id="username"
                   label="Username"
                   name="username"
@@ -105,6 +106,7 @@ export default function RegisterPage() {
                 <TextField
                   required
                   fullWidth
+                  type="text"
                   id="fullname"
                   label="Fullname"
                   name="fullname"
@@ -114,6 +116,7 @@ export default function RegisterPage() {
                 <TextField
                   required
                   fullWidth
+                  type="email"
                   id="email"
                   label="Email"
                   name="email"

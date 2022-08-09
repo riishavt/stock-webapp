@@ -104,12 +104,13 @@ export default function CalculatorPage() {
 
                     {value == 0 ?
                         <div>
-                            <Box component="form" noValidate onSubmit={handleBuySubmit} sx={{ mt: 3 }}>
+                            <Box component="form" onSubmit={handleBuySubmit} sx={{ mt: 3 }}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextField
                                             required
                                             fullWidth
+                                            type="number"
                                             id="buyingPrice"
                                             label="Buying Price"
                                             name="buyingPrice"
@@ -119,6 +120,7 @@ export default function CalculatorPage() {
                                         <TextField
                                             required
                                             fullWidth
+                                            type="number"
                                             id="noOfShares"
                                             label="Number of Shares"
                                             name="noOfShares"
@@ -149,6 +151,7 @@ export default function CalculatorPage() {
                                         <TextField
                                             required
                                             fullWidth
+                                            type="number"
                                             id="purchasePrice"
                                             label="Purchaced/Base Price"
                                             name="purchasePrice"
@@ -158,6 +161,7 @@ export default function CalculatorPage() {
                                         <TextField
                                             required
                                             fullWidth
+                                            type="number"
                                             id="sellingPrice"
                                             label="Selling Price"
                                             name="sellingPrice"
@@ -167,6 +171,7 @@ export default function CalculatorPage() {
                                         <TextField
                                             required
                                             fullWidth
+                                            type="number"
                                             id="shares"
                                             label="Number of Shares"
                                             name="shares"
