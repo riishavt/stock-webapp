@@ -11,6 +11,8 @@ import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
 import { StockPage } from './pages/StockPage';
 import { TopGainersLosers } from './pages/TopGainerPage';
+import CalculatorPage from './pages/CalculatorPage';
+import LiveMarketPage from './pages/LiveMarketPage';
 
 const darkTheme = createTheme({
 
@@ -46,6 +48,8 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="/stock" element={<StockPage />} />
+            <Route path="/live" element={<LiveMarketPage />} />
+            <Route path="/calculator" element={<CalculatorPage />} />
             <Route path="/gainer" element={<TopGainersLosers />} />
             <Route path="/" element={<ProtectedRoute />}>
               <Route path="/profile" element={<ProfilePage />} />

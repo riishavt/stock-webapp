@@ -15,7 +15,7 @@ import LayersIcon from '@mui/icons-material/Layers';
 
 import styles from './Header.module.css';
 import React from 'react';
-import { PieChartOutline } from '@mui/icons-material';
+import { Calculate, Moving, PieChartOutline } from '@mui/icons-material';
 import { color } from '@mui/system';
 
 const drawerWidth: number = 240;
@@ -204,6 +204,14 @@ const mainListItems = (
                 <ListItemText primary="Dashboard" />
             </ListItemButton>
         </Link>
+        <Link to="/live">
+            <ListItemButton>
+                <ListItemIcon>
+                    <Moving />
+                </ListItemIcon>
+                <ListItemText primary="Live Market" />
+            </ListItemButton>
+        </Link>
         <Link to="/portfolio">
             <ListItemButton>
                 <ListItemIcon>
@@ -226,6 +234,14 @@ const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Predictions" />
         </ListItemButton>
+        <Link to="/calculator">
+            <ListItemButton>
+                <ListItemIcon>
+                    <Calculate />
+                </ListItemIcon>
+                <ListItemText primary="Calculator" />
+            </ListItemButton>
+        </Link>
         <Link to="/gainer">
             <ListItemButton>
                 <ListItemIcon>

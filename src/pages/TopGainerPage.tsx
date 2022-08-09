@@ -73,7 +73,7 @@ export const TopGainersLosers = () => {
     return (
 
         <div>
-            <Container sx={{ padding: 2, display: 'flex', mt: '-200px', ml: '250px' }}>
+            <Container sx={{ padding: 2, display: 'flex', mt: '-330px', ml: '250px' }}>
                 <Grid  ><h1>Top Gainers</h1>
                     {!isGainerLoading ?
 

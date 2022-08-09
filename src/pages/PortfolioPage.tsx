@@ -116,12 +116,12 @@ export const Portfolio = () => {
     }
 
     const handleDeletePortfolioItem = (username: string, scrip: string) => {
-        axios.get(`http://localhost:8080/api/admin/portfolios/${username}/${scrip}`, { headers: { Authorization: `Bearer ${currentUser.token}` } })
+        axios.get(`http://localhost:8080/api/admin/portfolios/${currentUser.username}/${scrip}`, { headers: { Authorization: `Bearer ${currentUser.token}` } })
         window.location.reload();
     }
 
     return <div>
-        <Container sx={{ padding: 2, display: 'flex', mt: '-200px', ml: '350px' }}>
+        <Container sx={{ padding: 2, display: 'flex', mt: '-330px', ml: '350px' }}>
             <Stack spacing={3} sx={{ alignItems: 'end' }}>
                 <TableContainer sx={{ maxHeight: 600, maxWidth: 800 }}>
                     <Table stickyHeader aria-label="sticky table">
