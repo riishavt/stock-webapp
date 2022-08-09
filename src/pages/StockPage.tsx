@@ -19,23 +19,6 @@ interface StockInterface {
     TurnOver: number;
 }
 
-const sectors = {
-    corporate_debentures: ['NICAD8283', 'NBLD85'],
-    microfinance: ['ACLBSL', 'ALBSL', 'CBBL', 'CLBSL', 'DDBL', 'FMDBL', 'FOWAD', 'GMFBS', 'GILB', 'GBLBS', 'GLBSL', 'ILBS', 'JALPA', 'JSLBB', 'JBLB', 'KMCDB', 'KLBSL', 'LLBS', 'MLBSL', 'MSLB', 'MKLB', 'MLBS', 'MERO', 'MMFDB', 'MLBBL', 'NSLB', 'NLBBL', 'NESDO', 'NICLBSL', 'NUBL', 'RULB', 'RMDC', 'RSDC', 'SABSL', 'SDLBSL', 'SMATA', 'SLBSL', 'SKBBL', 'SMFDB', 'SMB', 'SWBBL', 'SMFBS', 'SLBBL', 'USLB', 'VLBS', 'WNLB'],
-    commercial_banks: ['ADBL', 'BOKL', 'CCBL', 'CZBIL', 'CBL', 'EBL', 'GBIME', 'KBL', 'LBL', 'MBL', 'MEGA', 'NABIL', 'NBL', 'NCCB', 'SBI', 'NICA', 'NMB', 'PRVU', 'PCBL', 'SANIMA', 'SBL', 'SCB', 'SRBL'],
-    non_life_insurance: ['AIL', 'EIC', 'GIC', 'HGI', 'IGI', 'LGIL', 'NIL', 'NICL', 'NLG', 'PRIN', 'PIC', 'PICL', 'RBCL', 'SIC', 'SGI', 'SICL', 'SIL', 'UIC'],
-    hydro_powers: ['AKJCL', 'API', 'AKPL', 'AHPC', 'BARUN', 'BNHC', 'BPCL', 'CHL', 'CHCL', 'DHPL', 'GHL', 'GLH', 'HDHPC', 'HURJA', 'HPPL', 'JOSHI', 'KPCL', 'KKHC', 'LEC', 'MBJC', 'MKJC', 'MEN', 'MHNL', 'NHPC', 'NHDL', 'NGPL', 'NYADI', 'PMHPL', 'PPCL', 'RADHI', 'RHPL', 'RURU', 'SAHAS', 'SPC', 'SHPC', 'SJCL', 'SSHL', 'SHEL', 'SPDL', 'TPC', 'UNHPL', 'UMRH', 'UMHL', 'UPCL', 'UPPER'],
-    life_insurance: ['ALICL', 'GLICL', 'JLI', 'LICN', 'NLICL', 'NLIC', 'PLI', 'PLIC', 'RLI', 'SLI', 'SLICL', 'ULI'],
-    finance: ['BFC', 'CFCL', 'GFCL', 'GMFIL', 'GUFL', 'ICFC', 'JFL', 'MFIL', 'MPFL', 'NFS', 'PFL', 'PROFL', 'RLFL', 'SFCL', 'SIFC'],
-    tradings: ['BBC', 'STC'],
-    manufacturing_and_processing: ['BNT', 'HDL', 'SHIVM', 'UNL'],
-    investment: ['CHDC', 'CIT', 'ENL', 'HIDCL', 'NIFRA', 'NRN'],
-    hotels: ['CGH', 'OHL', 'SHL', 'TRH'],
-    development_banks: ['CORBL', 'EDBL', 'GBBL', 'GRDBL', 'JBBL', 'KSBBL', 'KRBL', 'LBBL', 'MLBL', 'MDB', 'MNBBL', 'NABBC', 'SAPDBL', 'SADBL', 'SHINE', 'SINDU'],
-    mutual_fund: ['KEF', 'LUK', 'NEF', 'NIBLPF'],
-    other: ['NTC', 'NRIC']
-}
-
 export const StockPage = () => {
     const { scrip } = useAppSelector((state) => state.scrip);
     const [isLoading, setIsLoading] = useState(true);
@@ -57,48 +40,34 @@ export const StockPage = () => {
     }
 
     const fetchHistoricData = async () => {
-        try {
-            forEach(sectors, async (sector, value) => {
 
-                if (sector.includes(scrip)) {
-                    const response = await axios.get(`http://localhost:8080/api/nepseHistory/${value}/${scrip}`)
-                    if (response.status === 200) {
-                        setHistoricData(
-                            response.data.map((item: any) => {
-                                return {
-                                    //     { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
-                                    // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
-                                    time: formatDate(item.Time),
-                                    open: item.Open,
-                                    high: item.High,
-                                    low: item.Low,
-                                    close: item.Close,
-                                }
-                            }
-                            )
-                        );
-                        setVolumeData(
-                            response.data.map((item: any) => {
-                                return {
-                                    //{ time: '2019-05-28', value: 59.57 },
-                                    time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
-                                    value: item.Volume,
-                                }
-                            })
-                        )
-                        setIsChartLoading(false);
+        const response = await axios.get(`http://localhost:8080/api/nepseHistory/${scrip}`)
+        if (response.status === 200) {
+            setHistoricData(
+                response.data.map((item: any) => {
+                    return {
+                        // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
+                        time: formatDate(item.Time),
+                        open: item.Open,
+                        high: item.High,
+                        low: item.Low,
+                        close: item.Close,
                     }
-
                 }
-            })
-
-        }
-        catch (e) {
-            console.log(e);
+                )
+            );
+            setVolumeData(
+                response.data.map((item: any) => {
+                    return {
+                        //{ time: '2019-05-28', value: 59.57 },
+                        time: new Date(item.Time * 1000).toLocaleDateString('en-US'),
+                        value: item.Volume,
+                    }
+                })
+            )
+            setIsChartLoading(false);
         }
     }
-
-    //using useReducer hook may solve this problem
 
     useEffect(() => {
         fetchStockData();
@@ -107,7 +76,6 @@ export const StockPage = () => {
     useEffect(() => {
         setIsChartLoading(true);
         fetchHistoricData();
-
     }, [scrip]);
     return (
         <div>
@@ -144,7 +112,6 @@ export const StockPage = () => {
                                             <TableCell>{stockData.Open}</TableCell>
                                             <TableCell>{stockData.ShareTraded}</TableCell>
 
-
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
@@ -173,22 +140,6 @@ export const StockPage = () => {
     )
 }
 
-type SectorType = {
-    coporate_debentures: string[];
-    microfinance: string[];
-    commercial_banks: string[];
-    non_life_insurance: string[];
-    hydro_powers: string[];
-    life_insurance: string[];
-    finance: string[];
-    tradings: string[];
-    manufacturing_and_processing: string[];
-    investment: string[];
-    hotels: string[];
-    development_banks: string[];
-    mutual_fund: string[];
-    other: string[];
-}
 
 const options = {
     width: 800,
@@ -215,234 +166,3 @@ const options = {
         borderColor: 'rgba(197, 203, 206, 0.8)',
     },
 };
-
-
-// const sectorsJson = {
-//     "corporate_debentures": [
-//         "NICAD8283",
-//         "NBLD85"
-//     ],
-//     "microfinance": [
-//         "ACLBSL",
-//         "ALBSL",
-//         "CBBL",
-//         "CLBSL",
-//         "DDBL",
-//         "FMDBL",
-//         "FOWAD",
-//         "GMFBS",
-//         "GILB",
-//         "GBLBS",
-//         "GLBSL",
-//         "ILBS",
-//         "JALPA",
-//         "JSLBB",
-//         "JBLB",
-//         "KMCDB",
-//         "KLBSL",
-//         "LLBS",
-//         "MLBSL",
-//         "MSLB",
-//         "MKLB",
-//         "MLBS",
-//         "MERO",
-//         "MMFDB",
-//         "MLBBL",
-//         "NSLB",
-//         "NLBBL",
-//         "NESDO",
-//         "NICLBSL",
-//         "NUBL",
-//         "RULB",
-//         "RMDC",
-//         "RSDC",
-//         "SABSL",
-//         "SDLBSL",
-//         "SMATA",
-//         "SLBSL",
-//         "SKBBL",
-//         "SMFDB",
-//         "SMB",
-//         "SWBBL",
-//         "SMFBS",
-//         "SLBBL",
-//         "USLB",
-//         "VLBS",
-//         "WNLB"
-//     ],
-//     "commercial_banks": [
-//         "ADBL",
-//         "BOKL",
-//         "CCBL",
-//         "CZBIL",
-//         "CBL",
-//         "EBL",
-//         "GBIME",
-//         "KBL",
-//         "LBL",
-//         "MBL",
-//         "MEGA",
-//         "NABIL",
-//         "NBL",
-//         "NCCB",
-//         "SBI",
-//         "NICA",
-//         "NMB",
-//         "PRVU",
-//         "PCBL",
-//         "SANIMA",
-//         "SBL",
-//         "SCB",
-//         "SRBL"
-//     ],
-//     "non_life_insurance": [
-//         "AIL",
-//         "EIC",
-//         "GIC",
-//         "HGI",
-//         "IGI",
-//         "LGIL",
-//         "NIL",
-//         "NICL",
-//         "NLG",
-//         "PRIN",
-//         "PIC",
-//         "PICL",
-//         "RBCL",
-//         "SIC",
-//         "SGI",
-//         "SICL",
-//         "SIL",
-//         "UIC"
-//     ],
-//     "hydro_powers": [
-//         "AKJCL",
-//         "API",
-//         "AKPL",
-//         "AHPC",
-//         "BARUN",
-//         "BNHC",
-//         "BPCL",
-//         "CHL",
-//         "CHCL",
-//         "DHPL",
-//         "GHL",
-//         "GLH",
-//         "HDHPC",
-//         "HURJA",
-//         "HPPL",
-//         "JOSHI",
-//         "KPCL",
-//         "KKHC",
-//         "LEC",
-//         "MBJC",
-//         "MKJC",
-//         "MEN",
-//         "MHNL",
-//         "NHPC",
-//         "NHDL",
-//         "NGPL",
-//         "NYADI",
-//         "PMHPL",
-//         "PPCL",
-//         "RADHI",
-//         "RHPL",
-//         "RURU",
-//         "SAHAS",
-//         "SPC",
-//         "SHPC",
-//         "SJCL",
-//         "SSHL",
-//         "SHEL",
-//         "SPDL",
-//         "TPC",
-//         "UNHPL",
-//         "UMRH",
-//         "UMHL",
-//         "UPCL",
-//         "UPPER"
-//     ],
-//     "life_insurance": [
-//         "ALICL",
-//         "GLICL",
-//         "JLI",
-//         "LICN",
-//         "NLICL",
-//         "NLIC",
-//         "PLI",
-//         "PLIC",
-//         "RLI",
-//         "SLI",
-//         "SLICL",
-//         "ULI"
-//     ],
-//     "finance": [
-//         "BFC",
-//         "CFCL",
-//         "GFCL",
-//         "GMFIL",
-//         "GUFL",
-//         "ICFC",
-//         "JFL",
-//         "MFIL",
-//         "MPFL",
-//         "NFS",
-//         "PFL",
-//         "PROFL",
-//         "RLFL",
-//         "SFCL",
-//         "SIFC"
-//     ],
-//     "tradings": [
-//         "BBC",
-//         "STC"
-//     ],
-//     "manufacturing_and_processing": [
-//         "BNT",
-//         "HDL",
-//         "SHIVM",
-//         "UNL"
-//     ],
-//     "investment": [
-//         "CHDC",
-//         "CIT",
-//         "ENL",
-//         "HIDCL",
-//         "NIFRA",
-//         "NRN"
-//     ],
-//     "hotels": [
-//         "CGH",
-//         "OHL",
-//         "SHL",
-//         "TRH"
-//     ],
-//     "development_banks": [
-//         "CORBL",
-//         "EDBL",
-//         "GBBL",
-//         "GRDBL",
-//         "JBBL",
-//         "KSBBL",
-//         "KRBL",
-//         "LBBL",
-//         "MLBL",
-//         "MDB",
-//         "MNBBL",
-//         "NABBC",
-//         "SAPDBL",
-//         "SADBL",
-//         "SHINE",
-//         "SINDU"
-//     ],
-//     "mutual_fund": [
-//         "KEF",
-//         "LUK",
-//         "NEF",
-//         "NIBLPF"
-//     ],
-//     "other": [
-//         "NTC",
-//         "NRIC"
-//     ]
-// }

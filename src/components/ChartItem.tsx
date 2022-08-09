@@ -16,7 +16,7 @@ export const ChartItem = () => {
 
     const getData = async () => {
         try {
-            const response: any = await axios.get(`http://localhost:8080/api/nepseHistory/other/ntc`);
+            const response: any = await axios.get("http://localhost:8080/api/nepseHistory/NTC");
             if (response.status === 200) {
                 setFetchedData(
                     response.data
