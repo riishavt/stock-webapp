@@ -29,7 +29,7 @@ export const StockPage = () => {
 
     const fetchStockData = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/stocks/${scrip}`);
+            const response = await axios.get(`http://localhost:8080/api/stock/${scrip}`);
             if (response.status === 200) {
                 setStockData(response.data);
             }
