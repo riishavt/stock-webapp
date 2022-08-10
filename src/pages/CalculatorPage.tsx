@@ -90,7 +90,7 @@ export default function CalculatorPage() {
     return (
         <div>
 
-            <Container sx={{ padding: 2, display: 'flex', mt: '-330px', ml: '350px' }}>
+            <Container sx={{ padding: 2, display: 'flex', mt: '-360px', ml: '350px' }}>
                 <Box>
                     <h1>Calculator</h1>
                     <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">

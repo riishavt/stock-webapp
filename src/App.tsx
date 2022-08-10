@@ -13,6 +13,7 @@ import { StockPage } from './pages/StockPage';
 import { TopGainersLosers } from './pages/TopGainerPage';
 import CalculatorPage from './pages/CalculatorPage';
 import LiveMarketPage from './pages/LiveMarketPage';
+import NewsPage from './pages/NewsPage';
 
 const darkTheme = createTheme({
 
@@ -51,6 +52,7 @@ export default function App() {
             <Route path="/live" element={<LiveMarketPage />} />
             <Route path="/calculator" element={<CalculatorPage />} />
             <Route path="/gainer" element={<TopGainersLosers />} />
+            <Route path="/news" element={<NewsPage />} />
             <Route path="/" element={<ProtectedRoute />}>
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/portfolio" element={<Portfolio />} />
