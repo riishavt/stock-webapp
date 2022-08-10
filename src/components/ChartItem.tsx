@@ -15,28 +15,22 @@ export const ChartItem = () => {
     }, []);
 
     const getData = async () => {
-        try {
-            const response: any = await axios.get("http://localhost:8080/api/nepseHistory/NTC");
-            if (response.status === 200) {
-                setFetchedData(
-                    response.data
-                        .map((item: any) => {
-                            return {
-                                // { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
-                                time: formatDate(item.Time),
-                                open: item.Open,
-                                high: item.High,
-                                low: item.Low,
-                                close: item.Close
-                            }
-                        })
-                );
-                setIsChartLoading(false);
-            }
-            console.log(fetchedData);
-
-        } catch (e) {
-            console.log(e);
+        const response: any = await axios.get("http://localhost:8080/api/nepseHistoric");
+        if (response.status === 200) {
+            setFetchedData(
+                response.data
+                    .map((item: any) => {
+                        return {
+                            // { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
+                            time: formatDate(item.Time),
+                            open: item.Open,
+                            high: item.High,
+                            low: item.Low,
+                            close: item.Close
+                        }
+                    })
+            );
+            setIsChartLoading(false);
         }
     };
 
@@ -73,6 +67,7 @@ export const ChartItem = () => {
                     <CandlestickSeries
                         data={fetchedData}
                     />
+
                 </Chart>
             }
         </div>
