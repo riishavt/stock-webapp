@@ -11,7 +11,7 @@ interface GainerLoserInterface {
     Change: string;
     PercentChange: string;
 }
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell: any = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: '#78909c',
         color: theme.palette.common.white,
@@ -81,11 +81,11 @@ export const TopGainersLosers = () => {
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead >
                                     <TableRow>
-                                        <StyledTableCell>Symbol</StyledTableCell>
-                                        <StyledTableCell>Company Name</StyledTableCell>
-                                        <StyledTableCell>LTP</StyledTableCell>
-                                        <StyledTableCell>Change</StyledTableCell>
-                                        <StyledTableCell>Percent Change</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Symbol</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Company Name</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>LTP</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Change</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Percent Change</StyledTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -110,11 +110,11 @@ export const TopGainersLosers = () => {
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead >
                                     <TableRow>
-                                        <StyledTableCell>Symbol</StyledTableCell>
-                                        <StyledTableCell>Company Name</StyledTableCell>
-                                        <StyledTableCell>LTP</StyledTableCell>
-                                        <StyledTableCell>Change</StyledTableCell>
-                                        <StyledTableCell>Percent Change</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Symbol</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Company Name</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>LTP</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Change</StyledTableCell>
+                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Percent Change</StyledTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

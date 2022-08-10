@@ -121,7 +121,7 @@ export function Header() {
                             variant="h6"
                             color="inherit"
                             noWrap
-                            sx={{ flexGrow: 1 }}
+                            sx={{ flexGrow: 1, fontWeight: 'bold' }}
                         >
                             NEPSE WEBAPP
                         </Typography>
@@ -160,7 +160,7 @@ export function Header() {
                             </Link>
                         </Button>
 
-                        <IconButton color="inherit">
+                        <IconButton color="inherit" >
                             <Link to="/signin" className={styles.signin}>
                                 <Typography variant="h6" color="inherit">
                                     {user ? user.username : 'Sign in'}
@@ -220,14 +220,6 @@ const mainListItems = (
                     <LayersIcon />
                 </ListItemIcon>
                 <ListItemText primary="Portfolio" />
-            </ListItemButton>
-        </Link>
-        <Link to="/profile">
-            <ListItemButton>
-                <ListItemIcon>
-                    <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Profile" />
             </ListItemButton>
         </Link>
         <ListItemButton>
