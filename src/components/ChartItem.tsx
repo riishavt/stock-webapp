@@ -38,7 +38,8 @@ export const ChartItem = () => {
         width: 600,
         height: 400,
         layout: {
-            backgroundColor: '#faf5f5',
+            backgroundColor: '#2B2B43',
+            lineColor: '#2B2B43',
             textColor: 'rgba(255, 255, 255, 0.9)',
         },
         grid: {
@@ -50,10 +51,12 @@ export const ChartItem = () => {
             },
         },
         rightPriceScale: {
-            borderColor: 'rgba(197, 203, 206, 0.8)',
+            visible: true,
+            borderColor: 'rgba(197, 203, 206, 1)',
+            lockVisibleTimeRangeOnResize: true,
         },
         timeScale: {
-            borderColor: 'rgba(197, 203, 206, 0.8)',
+            borderColor: 'rgba(197, 203, 206, 1)',
         },
         crosshair: {
             mode: CrosshairMode.Normal,
