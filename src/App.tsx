@@ -30,7 +30,7 @@ const darkTheme = createTheme({
     },
     text: {
       primary: '#000000',
-      secondary: '#ffffff',
+      secondary: '#000000',
     }
 
   },
