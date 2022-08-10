@@ -65,11 +65,11 @@ function GainerLoserCard() {
                     <CardContent sx={{ backgroundColor: '#091929' }}>
                         {topGainers.map(gainer => (
                             <Stack direction="row">
-                                <Typography variant="h5" component="div" color="green">
-                                    {gainer.Symbol}
+                                <Typography variant="h6" component="div" color="green">
+                                    {gainer.Symbol} :
                                 </Typography>
-                                <Typography variant="h5" component="div" color="green">
-                                    {gainer.PercentChange}
+                                <Typography variant="h6" component="div" color="green">
+                                    : {gainer.PercentChange}
                                 </Typography>
                             </Stack>
                         ))}
@@ -91,11 +91,11 @@ function GainerLoserCard() {
                         <CardContent sx={{ backgroundColor: '#091929' }}>
                             {topLosers.map(loser => (
                                 <Stack direction="row">
-                                    <Typography variant="h5" component="div" color="red">
-                                        {loser.Symbol}
+                                    <Typography variant="h6" component="div" color="red">
+                                        {loser.Symbol} :
                                     </Typography>
-                                    <Typography variant="h5" component="div" color="red">
-                                        {loser.PercentChange}
+                                    <Typography variant="h6" component="div" color="red">
+                                        : {loser.PercentChange}
                                     </Typography>
                                 </Stack>
                             ))}

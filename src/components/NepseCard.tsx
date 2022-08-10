@@ -83,7 +83,7 @@ export const NepseCard = () => {
                         sx={{ backgroundColor: '#78909c' }}
                     />
                     <CardContent sx={{ backgroundColor: '#091929' }}>
-                        <Typography component="h3" variant="h4" color={nepseData.DailyGain > 0 ? "green" : "red"} align="center">
+                        <Typography component="h4" variant="h5" color={nepseData.DailyGain > 0 ? "green" : "red"} align="center">
                             {nepseData.Ltp}
                             <Icon children={nepseData.DailyGain > 0 ? <ArrowUpward color="success" /> : <ArrowDownward color="error" />} />
                         </Typography>
@@ -92,7 +92,7 @@ export const NepseCard = () => {
                             align="center"
                             color={nepseData.DailyGain > 0 ? "green" : "red"}
                         >
-                            {nepseData.DailyGain}
+                            {nepseData.DailyGain} %
                         </Typography>
                         <Stack direction="row">
                             <Typography component="h5"
@@ -100,14 +100,14 @@ export const NepseCard = () => {
                                 color={"white"}
                                 align="center"
                             >
-                                Gainers:
+                                Gainers :
                             </Typography>
-                            <Typography component="h4"
-                                variant="h4"
+                            <Typography component="h5"
+                                variant="h5"
                                 align="center"
                                 color={"green"}
                             >
-                                {nepseData.TotalPositiveGainer}
+                                : {nepseData.TotalPositiveGainer}
                             </Typography>
                         </Stack>
                         <Stack direction="row">
@@ -116,14 +116,14 @@ export const NepseCard = () => {
                                 color={"white"}
                                 align="center"
                             >
-                                Losers:
+                                Losers :
                             </Typography>
-                            <Typography component="h4"
-                                variant="h4"
+                            <Typography component="h5"
+                                variant="h5"
                                 align="center"
                                 color={"red"}
                             >
-                                {nepseData.TotalNegativeGainer}
+                                : {nepseData.TotalNegativeGainer}
                             </Typography>
                         </Stack>
                     </CardContent>
