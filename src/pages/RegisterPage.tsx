@@ -89,13 +89,14 @@ export default function RegisterPage() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmitSignUp} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmitSignUp} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   type="text"
+                  inputProps={{ minLength: 3 }}
                   id="username"
                   label="Username"
                   name="username"
@@ -107,6 +108,7 @@ export default function RegisterPage() {
                   required
                   fullWidth
                   type="text"
+                  inputProps={{ minLength: 5 }}
                   id="fullname"
                   label="Fullname"
                   name="fullname"
@@ -127,6 +129,7 @@ export default function RegisterPage() {
                   required
                   fullWidth
                   name="password"
+                  inputProps={{ minLength: 5 }}
                   label="Password"
                   type="password"
                   id="password"

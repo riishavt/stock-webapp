@@ -95,6 +95,7 @@ export default function SignInPage() {
               required
               fullWidth
               id="username"
+              inputProps={{ minLength: 3 }}
               label="Username"
               name="username"
               autoComplete="username"
@@ -107,6 +108,7 @@ export default function SignInPage() {
               name="password"
               label="Password"
               type="password"
+              inputProps={{ minLength: 5 }}
               id="password"
               autoComplete="current-password"
             />
