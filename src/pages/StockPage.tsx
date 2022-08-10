@@ -79,7 +79,7 @@ export const StockPage = () => {
     }, [scrip]);
     return (
         <div>
-            <Container sx={{ padding: 2, display: 'flex', mt: '-390px', ml: '250px' }}>
+            <Container sx={{ padding: 2, display: 'flex', mt: '-365px', ml: '250px' }}>
                 <Grid>
                     <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: '2.5rem' }}>
                         {scrip}

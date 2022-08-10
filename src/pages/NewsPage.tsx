@@ -23,7 +23,7 @@ export default function NewsPage() {
 
     return (
         <div>
-            <Container sx={{ padding: 2, display: 'flex', mt: '-390px', ml: '350px' }}>
+            <Container sx={{ padding: 2, display: 'flex', mt: '-365px', ml: '350px' }}>
                 <Stack direction="column">
                     <h1>HighLights</h1>
                     <Grid>
