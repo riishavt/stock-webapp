@@ -121,7 +121,7 @@ export const Portfolio = () => {
     }
 
     return <div>
-        <Container sx={{ padding: 2, display: 'flex', mt: '-360px', ml: '350px' }}>
+        <Container sx={{ padding: 2, display: 'flex', mt: '-390px', ml: '350px' }}>
             <Stack spacing={3} sx={{ alignItems: 'end' }}>
                 <TableContainer sx={{ maxHeight: 600, maxWidth: 800 }}>
                     <Table stickyHeader aria-label="sticky table">

@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material'
+import { Container, Grid, Stack } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { NewsInterface } from '../utils/newsType'
@@ -23,22 +23,41 @@ export default function NewsPage() {
 
     return (
         <div>
-            <Container sx={{ padding: 2, display: 'flex', mt: '-360px', ml: '350px' }}>
-                <Grid>
-                    {news && news?.featured_news?.map((item: any) => {
-                        return (
-                            <div>
-                                <h1>{item.title}</h1>
-                                <p>{item.description}</p>
-                                <p>{item.url}</p>
-                                <p>{item.publishedAt}</p>
-                            </div>
-                        )
-                    }
-                    )}
-                </Grid>
+            <Container sx={{ padding: 2, display: 'flex', mt: '-390px', ml: '350px' }}>
+                <Stack direction="column">
+                    <h1>HighLights</h1>
+                    <Grid>
+                        {news && news?.featured_news?.map((item: any) => {
+                            return (
+                                <ul>
+                                    <li><h3>{item.title}</h3></li>
+                                </ul>
+                            )
+                        }
+                        )}
+                    </Grid>
+                    <Grid>
+                        {news && news?.stock_analysis?.map((item: any) => {
+                            return (
+                                <ul>
+                                    <li><h3>{item.title}</h3></li>
+                                </ul>
+                            )
+                        }
+                        )}
+                    </Grid>
+                    <Grid>
+                        {news && news?.highlights_news?.map((item: any) => {
+                            return (
+                                <ul>
+                                    <li><h3>{item.title}</h3></li>
+                                </ul>
+                            )
+                        }
+                        )}
+                    </Grid>
 
-
+                </Stack>
             </Container>
         </div>
     )

@@ -6,7 +6,7 @@ import { NepseCard } from '../components/NepseCard';
 
 export default function HomePage() {
     return (
-        <Container maxWidth='lg' sx={{ padding: 2, display: 'flex', mt: '-360px', ml: '250px' }}>
+        <Container maxWidth='lg' sx={{ padding: 2, display: 'flex', mt: '-390px', ml: '250px' }}>
             <Grid container spacing={4}>
                 <Grid container spacing={12}>
                     <Stack spacing={25} direction="row" sx={{ alignItems: 'center', ml: '170px', mt: '120px' }}>

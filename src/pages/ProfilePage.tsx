@@ -48,7 +48,7 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <Container sx={{ padding: 2, display: 'flex', mt: '-360px', ml: '450px' }}>
+      <Container sx={{ padding: 2, display: 'flex', mt: '-390px', ml: '450px' }}>
         <Stack spacing={2} alignItems='normal'>
           {user && userData ?
             <div>
