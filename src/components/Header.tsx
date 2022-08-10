@@ -130,8 +130,10 @@ export function Header() {
                             noOptionsText="No results"
                             options={stockNameData}
                             getOptionLabel={(option) => option.label}
+                            sx={{ borderRadius: "16px" }}
                             style={{
                                 minWidth: 500,
+                                backgroundColor: "whitesmoke",
                                 marginRight: '24px',
                                 textDecorationColor: '#000000',
 

@@ -183,7 +183,7 @@ export const IndexTable = () => {
         // { id: "YearlyPercentChange", label: "Yearly Percent Change", minWidth: 100 },
         // { id: "MacdSignal", label: "Macd Signal", minWidth: 100 },
         // { id: "SmaTwo", label: "Sma Two", minWidth: 100 },
-        { id: "Ltp", label: "Ltp", minWidth: 100 },
+        { id: "Ltp", label: "LTP", minWidth: 100 },
         //  { id: "TotalDividendYield", label: "Total Dividend Yield", minWidth: 100 },
         // { id: "Roa", label: "Roa", minWidth: 100 },
     ]
@@ -220,7 +220,7 @@ export const IndexTable = () => {
                                 {columns.map((column) => (
                                     <StyledTableCell
                                         key={column.id}
-                                        style={{ minWidth: column.minWidth }}>
+                                        style={{ minWidth: column.minWidth, fontWeight: "bold", fontSize: "16px" }}>
                                         {column.label}
                                     </StyledTableCell>
                                 ))}

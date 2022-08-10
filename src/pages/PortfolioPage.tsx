@@ -130,7 +130,7 @@ export const Portfolio = () => {
                                 {columns.map((column) => (
                                     <StyledTableCell
                                         key={column.label}
-                                        style={{ minWidth: column.minWidth }}
+                                        style={{ minWidth: column.minWidth, fontWeight: "bold", fontSize: "16px" }}
                                     >
                                         {column.label}
                                     </StyledTableCell>
