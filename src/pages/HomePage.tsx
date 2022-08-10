@@ -9,7 +9,7 @@ export default function HomePage() {
         <Container maxWidth='lg' sx={{ padding: 2, display: 'flex', mt: '-330px', ml: '250px' }}>
             <Grid container spacing={4}>
                 <Grid container spacing={12}>
-                    <Stack spacing={25} direction="row" sx={{ alignItems: 'center', ml: '190px', mt: '120px' }}>
+                    <Stack spacing={25} direction="row" sx={{ alignItems: 'center', ml: '170px', mt: '120px' }}>
                         <NepseCard />
                         <GainerLoserCard />
                         <Card variant='outlined'>

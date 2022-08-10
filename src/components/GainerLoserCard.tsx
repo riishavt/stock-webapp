@@ -51,60 +51,58 @@ function GainerLoserCard() {
 
 
     return (
-        <Stack direction="row" spacing={8}>
-            <Card variant='outlined'>
-                {!isGainerLoading ?
-                    <>
-                        <CardHeader
-                            title={'Gainers'}
-                            titleTypographyProps={{ align: 'center' }}
-                            subheaderTypographyProps={{
-                                align: 'center',
-                            }}
-                            sx={{ backgroundColor: '#78909c' }}
-                        />
-
-                        <CardContent sx={{ backgroundColor: '#091929' }}>
-                            {topGainers.map(gainer => (
-                                <Stack direction="row" spacing={2}>
-                                    <Typography variant="h5" component="div" color="green">
-                                        {gainer.Symbol}
-                                    </Typography>
-                                    <Typography variant="h5" component="div" color="green">
-                                        {gainer.PercentChange}
-                                    </Typography>
-                                </Stack>
-                            ))}
-                        </CardContent>
-
-                    </>
-                    : <CircularProgress />}
-            </Card>
-
-            <Card variant='outlined'>
-                <CardHeader
-                    title={'Losers'}
-                    titleTypographyProps={{ align: 'center' }}
-                    subheaderTypographyProps={{
-                        align: 'center',
-                    }}
-                    sx={{ backgroundColor: '#78909c' }}
-                />
-                {!isLoserLoading ?
+        <Stack direction="row">
+            {!isGainerLoading ?
+                <Card variant='elevation' raised sx={{ ml: -10 }}>
+                    <CardHeader
+                        title={'Gainers'}
+                        titleTypographyProps={{ align: 'center' }}
+                        subheaderTypographyProps={{
+                            align: 'center',
+                        }}
+                        sx={{ backgroundColor: '#78909c' }}
+                    />
                     <CardContent sx={{ backgroundColor: '#091929' }}>
-                        {topLosers.map(loser => (
-                            <Stack direction="row" spacing={2}>
-                                <Typography variant="h5" component="div" color="red">
-                                    {loser.Symbol}
+                        {topGainers.map(gainer => (
+                            <Stack direction="row">
+                                <Typography variant="h5" component="div" color="green">
+                                    {gainer.Symbol}
                                 </Typography>
-                                <Typography variant="h5" component="div" color="red">
-                                    {loser.PercentChange}
+                                <Typography variant="h5" component="div" color="green">
+                                    {gainer.PercentChange}
                                 </Typography>
                             </Stack>
                         ))}
                     </CardContent>
-                    : <CircularProgress />}
-            </Card>
+                </Card>
+                : <CircularProgress />}
+
+            {!isLoserLoading ?
+                <Card variant='elevation' raised sx={{ ml: 10 }}>
+                    <CardHeader
+                        title={'Losers'}
+                        titleTypographyProps={{ align: 'center' }}
+                        subheaderTypographyProps={{
+                            align: 'center',
+                        }}
+                        sx={{ backgroundColor: '#78909c' }}
+                    />
+                    {!isLoserLoading ?
+                        <CardContent sx={{ backgroundColor: '#091929' }}>
+                            {topLosers.map(loser => (
+                                <Stack direction="row">
+                                    <Typography variant="h5" component="div" color="red">
+                                        {loser.Symbol}
+                                    </Typography>
+                                    <Typography variant="h5" component="div" color="red">
+                                        {loser.PercentChange}
+                                    </Typography>
+                                </Stack>
+                            ))}
+                        </CardContent>
+                        : <CircularProgress />}
+                </Card>
+                : <CircularProgress />}
         </Stack>
 
     )

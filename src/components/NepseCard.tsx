@@ -75,68 +75,59 @@ export const NepseCard = () => {
     return (
         <div>
             {!isLoading ?
-                <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={12}
-                >
-                    <Card variant='elevation' raised>
-                        <CardHeader
-                            title={'NEPSE'}
-                            titleTypographyProps={{ align: 'center' }}
-                            subheaderTypographyProps={{
-                                align: 'center',
-                            }}
-                            sx={{ backgroundColor: '#78909c' }}
-                        />
-                        <CardContent sx={{ backgroundColor: '#091929' }}>
-                            <Typography component="h3" variant="h4" color={nepseData.DailyGain > 0 ? "green" : "red"} align="center">
-                                {nepseData.Ltp}
-                                <Icon children={nepseData.DailyGain > 0 ? <ArrowUpward color="success" /> : <ArrowDownward color="error" />} />
-                            </Typography>
+                <Card variant='elevation' raised>
+                    <CardHeader
+                        title={'NEPSE'}
+                        titleTypographyProps={{ align: 'center' }}
+                        subheaderTypographyProps={{ align: 'center' }}
+                        sx={{ backgroundColor: '#78909c' }}
+                    />
+                    <CardContent sx={{ backgroundColor: '#091929' }}>
+                        <Typography component="h3" variant="h4" color={nepseData.DailyGain > 0 ? "green" : "red"} align="center">
+                            {nepseData.Ltp}
+                            <Icon children={nepseData.DailyGain > 0 ? <ArrowUpward color="success" /> : <ArrowDownward color="error" />} />
+                        </Typography>
+                        <Typography component="h5"
+                            variant="h5"
+                            align="center"
+                            color={nepseData.DailyGain > 0 ? "green" : "red"}
+                        >
+                            {nepseData.DailyGain}
+                        </Typography>
+                        <Stack direction="row">
                             <Typography component="h5"
                                 variant="h5"
+                                color={"white"}
                                 align="center"
-                                color={nepseData.DailyGain > 0 ? "green" : "red"}
                             >
-                                {nepseData.DailyGain}
+                                Gainers:
                             </Typography>
-                            <Stack direction="row" spacing={2}>
-                                <Typography component="h5"
-                                    variant="h5"
-                                    color={"white"}
-                                    align="center"
-                                >
-                                    Gainers:
-                                </Typography>
-                                <Typography component="h4"
-                                    variant="h4"
-                                    align="center"
-                                    color={"green"}
-                                >
-                                    {nepseData.TotalPositiveGainer}
-                                </Typography>
-                            </Stack>
-                            <Stack direction="row" spacing={2}>
-                                <Typography component="h5"
-                                    variant="h5"
-                                    color={"white"}
-                                    align="center"
-                                >
-                                    Losers:
-                                </Typography>
-                                <Typography component="h4"
-                                    variant="h4"
-                                    align="center"
-                                    color={"red"}
-                                >
-                                    {nepseData.TotalNegativeGainer}
-                                </Typography>
-                            </Stack>
-                        </CardContent>
-                    </Card>
-                </Grid>
+                            <Typography component="h4"
+                                variant="h4"
+                                align="center"
+                                color={"green"}
+                            >
+                                {nepseData.TotalPositiveGainer}
+                            </Typography>
+                        </Stack>
+                        <Stack direction="row">
+                            <Typography component="h5"
+                                variant="h5"
+                                color={"white"}
+                                align="center"
+                            >
+                                Losers:
+                            </Typography>
+                            <Typography component="h4"
+                                variant="h4"
+                                align="center"
+                                color={"red"}
+                            >
+                                {nepseData.TotalNegativeGainer}
+                            </Typography>
+                        </Stack>
+                    </CardContent>
+                </Card>
                 : <CircularProgress />}
         </div>
     )
