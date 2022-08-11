@@ -53,7 +53,7 @@ function GainerLoserCard() {
     return (
         <Stack direction="row">
             {!isGainerLoading ?
-                <Card variant='elevation' raised sx={{ ml: -10 }}>
+                <Card variant='elevation' raised sx={{ ml: -15, minWidth: "180px" }} >
                     <CardHeader
                         title={'Gainers'}
                         titleTypographyProps={{ align: 'center' }}
@@ -78,7 +78,7 @@ function GainerLoserCard() {
                 : <CircularProgress />}
 
             {!isLoserLoading ?
-                <Card variant='elevation' raised sx={{ ml: 10 }}>
+                <Card variant='elevation' raised sx={{ ml: 10, minWidth: "180px" }}>
                     <CardHeader
                         title={'Losers'}
                         titleTypographyProps={{ align: 'center' }}

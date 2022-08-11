@@ -39,12 +39,12 @@ export default function CalculatorPage() {
             shares: data.get('shares'),
         });
         let shareAmount = shares * purchasePrice;
-        let brokerCommission = shareAmount * 0.034;
+        let brokerCommission = Number((shareAmount * 0.034).toFixed(2));
         let sebonCommission = -300;
         let dpFee = -25;
         let capitalGain = sellingPrice - purchasePrice;
-        let capitalGainTax = capitalGain * 0.75;
-        let ToatalReceivable = shareAmount + brokerCommission + sebonCommission + dpFee + capitalGainTax;
+        let capitalGainTax = Number((capitalGain * 0.75).toFixed(2));
+        let ToatalReceivable = Number((shareAmount + brokerCommission + sebonCommission + dpFee + capitalGainTax).toFixed(2));
 
         let profit = {
             shareAmount,
@@ -71,11 +71,11 @@ export default function CalculatorPage() {
             noOfShares: data.get('noOfShares'),
         });
         let shareAmount = noOfShares * buyingPrice;
-        let brokerCommission = shareAmount * 0.034;
+        let brokerCommission = Number((shareAmount * 0.034).toFixed(2));
         let sebonCommission = -300;
         let dpFee = -25;
-        let totalPayableAmount = shareAmount + brokerCommission + sebonCommission + dpFee;
-        let costPricePerShare = totalPayableAmount / noOfShares;
+        let totalPayableAmount = Number((shareAmount + brokerCommission + sebonCommission + dpFee).toFixed(2));
+        let costPricePerShare = Number((totalPayableAmount / noOfShares).toFixed(2));
         let cost = {
             shareAmount,
             brokerCommission,

@@ -153,20 +153,18 @@ export function Header() {
                                 />
                             )}
                         />
-
                         <Button onClick={handleOnSubmit} variant="contained" sx={{ mr: 25 }}>
                             <Link to="/stock" >
                                 <p><b>Search</b></p>
                             </Link>
                         </Button>
-
-                        <IconButton color="inherit" >
+                        <Button variant="contained" color="info">
                             <Link to="/signin" className={styles.signin}>
                                 <Typography variant="h6" color="inherit">
                                     {user ? user.username : 'Sign in'}
                                 </Typography>
                             </Link>
-                        </IconButton>
+                        </Button>
                     </Toolbar>
                 </AppBar>
             </div>

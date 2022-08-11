@@ -75,7 +75,7 @@ export const NepseCard = () => {
     return (
         <div>
             {!isLoading ?
-                <Card variant='elevation' raised>
+                <Card variant='elevation' raised sx={{ minWidth: "180px" }}>
                     <CardHeader
                         title={'NEPSE'}
                         titleTypographyProps={{ align: 'center' }}
