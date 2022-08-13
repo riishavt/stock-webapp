@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Container, Grid, Tab, Tabs, Typography } from "@mui/material";
+import { CircularProgress, Container, Grid, styled, Tab, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tabs, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks/search";
@@ -26,19 +26,42 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
-                </Box>
+                <>
+                    {children}
+                </>
             )}
         </div>
     );
 }
 
-function a11yProps(index: number) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: '#78909c',
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        // backgroundColor: '#3F4E4F',
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
+
+export interface NepseHistory {
+    Time?: number;
+    Close?: number;
+    Open?: number;
+    High?: number;
+    Low?: number;
+    Volume?: number;
 }
 
 interface StockInterface {
@@ -58,8 +81,18 @@ export const StockPage = () => {
     const [isChartLoading, setIsChartLoading] = useState(true);
     const [stockData, setStockData] = useState<StockInterface>({} as StockInterface);
     const [historicData, setHistoricData] = useState<any[]>([]);
+    const [historicTableData, setHistoricTableData] = useState<NepseHistory[]>([]);
     const [volumeData, setVolumeData] = useState<any[]>([]);
     const [value, setValue] = useState(0);
+
+    const columns = [
+        { id: "Time", label: "Time", minWidth: 150 },
+        { id: "Close", label: "Close", minWidth: 150 },
+        { id: "Open", label: "Open", minWidth: 150 },
+        { id: "High", label: "High", minWidth: 150 },
+        { id: "Low", label: "Low", minWidth: 150 },
+        { id: "Volume", label: "Volume", minWidth: 150 },
+    ];
 
     const fetchStockData = async () => {
         try {
@@ -99,6 +132,20 @@ export const StockPage = () => {
                     }
                 })
             )
+            setHistoricTableData(response.data.map((item: any) => {
+                return {
+                    // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
+                    Time: formatDate(item.Time),
+                    Open: item.Open,
+                    High: item.High,
+                    Low: item.Low,
+                    Close: item.Close,
+                    Volume: item.Volume,
+                }
+
+            }
+            ));
+
             setIsChartLoading(false);
         }
     }
@@ -122,28 +169,30 @@ export const StockPage = () => {
                     <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: '2.5rem' }}>
                         {scrip}
                     </Typography>
-                    <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
+
+                    <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example" sx={{ ml: "250px" }}>
                         <Tab icon={<GraphicEq />} label="CHART" value={0} />
                         <Tab icon={<Details />} label="DETAILS" value={1} />
                         <Tab icon={<History />} label="HISTORIC DATA" value={2} />
                     </Tabs>
+
                     <TabPanel value={value} index={0}>
-                        <Grid item xs={8}>
-                            {!isChartLoading ?
-                                <Chart {...options}>
-                                    <CandlestickSeries
-                                        data={historicData}
-                                    />
-                                    <HistogramSeries
-                                        data={volumeData}
-                                        priceScaleId=""
-                                        color="#26a69a"
-                                        priceFormat={{ type: 'volume' }}
-                                        scaleMargins={{ top: 0.9, bottom: 0 }}
-                                    />
-                                </Chart>
-                                : <CircularProgress />}
-                        </Grid>
+
+                        {!isChartLoading ?
+                            <Chart {...options}>
+                                <CandlestickSeries
+                                    data={historicData}
+                                />
+                                <HistogramSeries
+                                    data={volumeData}
+                                    priceScaleId=""
+                                    color="#26a69a"
+                                    priceFormat={{ type: 'volume' }}
+                                    scaleMargins={{ top: 0.9, bottom: 0 }}
+                                />
+                            </Chart>
+                            : <CircularProgress />}
+
                     </TabPanel>
 
                     <TabPanel value={value} index={1}>
@@ -164,7 +213,43 @@ export const StockPage = () => {
                     </TabPanel>
 
                     <TabPanel value={value} index={2}>
-                        Item Three
+
+
+                        <TableContainer sx={{ maxHeight: 500, maxWidth: 900 }}>
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead >
+                                    <TableRow>
+                                        {columns.map((column) => (
+                                            <StyledTableCell
+                                                key={column.id}
+                                                style={{ minWidth: column.minWidth, fontWeight: "bold", fontSize: "16px" }}
+                                            >
+                                                {column.label}
+                                            </StyledTableCell>
+                                        ))}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {historicTableData
+                                        .map((row: any) => {
+                                            return (
+                                                <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.Time}>
+                                                    {columns.map((column) => {
+                                                        const value = row[column.id];
+                                                        return (
+                                                            <StyledTableCell key={column.id} >
+                                                                {value}
+                                                            </StyledTableCell>
+                                                        );
+                                                    })}
+                                                </StyledTableRow>
+                                            );
+                                        })}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+
+
                     </TabPanel>
 
                 </Grid>
