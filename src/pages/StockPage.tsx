@@ -1,12 +1,45 @@
-import { Button, CircularProgress, Container, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, CircularProgress, Container, Grid, Tab, Tabs, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../redux/hooks/search";
 import { CrosshairMode } from 'lightweight-charts';
 import { Chart, CandlestickSeries, HistogramSeries } from 'lightweight-charts-react-wrapper';
-import { forEach } from "lodash";
 import { formatDate } from "../utils/formatDate";
+import { GraphicEq, Details, History } from "@mui/icons-material";
 
+
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+function a11yProps(index: number) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 
 interface StockInterface {
     Change: number;
@@ -26,6 +59,7 @@ export const StockPage = () => {
     const [stockData, setStockData] = useState<StockInterface>({} as StockInterface);
     const [historicData, setHistoricData] = useState<any[]>([]);
     const [volumeData, setVolumeData] = useState<any[]>([]);
+    const [value, setValue] = useState(0);
 
     const fetchStockData = async () => {
         try {
@@ -77,6 +111,10 @@ export const StockPage = () => {
         setIsChartLoading(true);
         fetchHistoricData();
     }, [scrip]);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue);
+    };
     return (
         <div>
             <Container sx={{ padding: 2, display: 'flex', mt: '-365px', ml: '250px' }}>
@@ -84,39 +122,12 @@ export const StockPage = () => {
                     <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: '2.5rem' }}>
                         {scrip}
                     </Typography>
-                    <div>
-                        <Grid item xs={8}>
-                            {!isLoading ?
-                                <TableContainer sx={{ maxHeight: 440 }}>
-                                    <Table stickyHeader aria-label="sticky table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell>Stock Name</TableCell>
-                                                <TableCell>Last Price</TableCell>
-                                                <TableCell>Turn Over</TableCell>
-                                                <TableCell>Change</TableCell>
-                                                <TableCell>High</TableCell>
-                                                <TableCell>Low</TableCell>
-                                                <TableCell>Open</TableCell>
-                                                <TableCell>Share Traded</TableCell>
-
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            <TableCell>{stockData.StockName}</TableCell>
-                                            <TableCell>{stockData.LastPrice}</TableCell>
-                                            <TableCell>{stockData.TurnOver}</TableCell>
-                                            <TableCell>{stockData.Change}</TableCell>
-                                            <TableCell>{stockData.High}</TableCell>
-                                            <TableCell>{stockData.Low}</TableCell>
-                                            <TableCell>{stockData.Open}</TableCell>
-                                            <TableCell>{stockData.ShareTraded}</TableCell>
-
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                                : <CircularProgress />}
-                        </Grid>
+                    <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
+                        <Tab icon={<GraphicEq />} label="CHART" value={0} />
+                        <Tab icon={<Details />} label="DETAILS" value={1} />
+                        <Tab icon={<History />} label="HISTORIC DATA" value={2} />
+                    </Tabs>
+                    <TabPanel value={value} index={0}>
                         <Grid item xs={8}>
                             {!isChartLoading ?
                                 <Chart {...options}>
@@ -133,10 +144,32 @@ export const StockPage = () => {
                                 </Chart>
                                 : <CircularProgress />}
                         </Grid>
-                    </div>
+                    </TabPanel>
+
+                    <TabPanel value={value} index={1}>
+
+                        <Grid item xs={8}>
+                            {!isLoading ?
+
+                                <div>
+                                    <h1>Name : {stockData.StockName}</h1>
+                                    <h1>Open : {stockData.Open}</h1>
+                                    <h1>High : {stockData.High}</h1>
+                                    <h1>Low : {stockData.Low}</h1>
+                                    <h1>LastPrice : {stockData.LastPrice}</h1>
+                                    <h1>TurnOver : {stockData.TurnOver}</h1>
+                                </div>
+                                : <CircularProgress />}
+                        </Grid>
+                    </TabPanel>
+
+                    <TabPanel value={value} index={2}>
+                        Item Three
+                    </TabPanel>
+
                 </Grid>
             </Container>
-        </div>
+        </div >
     )
 }
 

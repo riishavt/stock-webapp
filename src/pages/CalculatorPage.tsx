@@ -58,6 +58,7 @@ export default function CalculatorPage() {
         setProfit(profit);
     };
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        event.preventDefault();
         setValue(newValue);
     };
 
@@ -93,14 +94,14 @@ export default function CalculatorPage() {
             <Container sx={{ padding: 2, display: 'flex', mt: '-365px', ml: '350px' }}>
                 <Box>
                     <h1>Calculator</h1>
-                    <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
+                    <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example" >
                         <Tab icon={<Shop />} label="BUY" />
                         <Tab icon={<Minimize />} label="SELL" />
                     </Tabs>
 
                     {value == 0 ?
                         <div>
-                            <Box component="form" onSubmit={handleBuySubmit} sx={{ mt: 3 }}>
+                            <Box component="form" onSubmit={handleBuySubmit} sx={{ mt: 3 }} >
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextField
@@ -141,7 +142,7 @@ export default function CalculatorPage() {
                         </div>
                         :
                         <div>
-                            <Box component="form" noValidate onSubmit={handleSellSubmit} sx={{ mt: 3 }}>
+                            <Box component="form" onSubmit={handleSellSubmit} sx={{ mt: 3 }} >
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextField

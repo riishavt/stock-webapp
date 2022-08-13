@@ -9,14 +9,11 @@ import { setScrip } from '../redux/features/searchSlice';
 import { useAppSelector } from '../redux/hooks';
 import { useAppDispatch } from '../redux/hooks/search';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
-
 import styles from './Header.module.css';
 import React from 'react';
 import { Calculate, Moving, Newspaper, PieChartOutline } from '@mui/icons-material';
-import { color } from '@mui/system';
 
 const drawerWidth: number = 240;
 
