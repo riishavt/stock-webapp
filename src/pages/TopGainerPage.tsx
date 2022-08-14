@@ -20,6 +20,24 @@ const StyledTableCell: any = styled(TableCell)(({ theme }) => ({
         fontSize: 14,
     },
 }));
+const StyledGainerTableCell: any = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: 'green',
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+const StyledLoserTableCell: any = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: 'red',
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(odd)': {
@@ -81,11 +99,11 @@ export const TopGainersLosers = () => {
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead >
                                     <TableRow>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Symbol</StyledTableCell>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Company Name</StyledTableCell>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>LTP</StyledTableCell>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Change</StyledTableCell>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Percent Change</StyledTableCell>
+                                        <StyledGainerTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Symbol</StyledGainerTableCell>
+                                        <StyledGainerTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Company Name</StyledGainerTableCell>
+                                        <StyledGainerTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>LTP</StyledGainerTableCell>
+                                        <StyledGainerTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Change</StyledGainerTableCell>
+                                        <StyledGainerTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Percent Change</StyledGainerTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -110,11 +128,11 @@ export const TopGainersLosers = () => {
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead >
                                     <TableRow>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Symbol</StyledTableCell>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Company Name</StyledTableCell>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>LTP</StyledTableCell>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Change</StyledTableCell>
-                                        <StyledTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Percent Change</StyledTableCell>
+                                        <StyledLoserTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Symbol</StyledLoserTableCell>
+                                        <StyledLoserTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Company Name</StyledLoserTableCell>
+                                        <StyledLoserTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>LTP</StyledLoserTableCell>
+                                        <StyledLoserTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Change</StyledLoserTableCell>
+                                        <StyledLoserTableCell style={{ fontWeight: "bold", fontSize: "16px" }}>Percent Change</StyledLoserTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

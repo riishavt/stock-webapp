@@ -7,7 +7,6 @@ import { Chart, CandlestickSeries, HistogramSeries } from 'lightweight-charts-re
 import { formatDate } from "../utils/formatDate";
 import { GraphicEq, Details, History } from "@mui/icons-material";
 
-
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -74,6 +73,36 @@ interface StockInterface {
     StockName: string;
     TurnOver: number;
 }
+
+const options = {
+    width: 800,
+    height: 500,
+    layout: {
+        backgroundColor: '#2B2B43',
+        lineColor: '#2B2B43',
+        textColor: 'rgba(255, 255, 255, 0.9)',
+    },
+    grid: {
+        vertLines: {
+            color: 'rgba(197, 203, 206, 0.5)',
+        },
+        horzLines: {
+            color: 'rgba(197, 203, 206, 0.5)',
+        },
+    },
+    rightPriceScale: {
+        visible: true,
+        borderColor: 'rgba(197, 203, 206, 1)',
+        lockVisibleTimeRangeOnResize: true,
+    },
+    timeScale: {
+        borderColor: 'rgba(197, 203, 206, 1)',
+    },
+    crosshair: {
+        mode: CrosshairMode.Normal,
+    },
+};
+
 
 export const StockPage = () => {
     const { scrip } = useAppSelector((state) => state.scrip);
@@ -188,7 +217,10 @@ export const StockPage = () => {
                                     priceScaleId=""
                                     color="#26a69a"
                                     priceFormat={{ type: 'volume' }}
-                                    scaleMargins={{ top: 0.9, bottom: 0 }}
+                                    scaleMargins={{
+                                        top: 0.11,
+                                        bottom: 0,
+                                    }}
                                 />
                             </Chart>
                             : <CircularProgress />}
@@ -199,7 +231,6 @@ export const StockPage = () => {
 
                         <Grid item xs={8}>
                             {!isLoading ?
-
                                 <div>
                                     <h1>Name : {stockData.StockName}</h1>
                                     <h1>Open : {stockData.Open}</h1>
@@ -213,7 +244,6 @@ export const StockPage = () => {
                     </TabPanel>
 
                     <TabPanel value={value} index={2}>
-
 
                         <TableContainer sx={{ maxHeight: 500, maxWidth: 900 }}>
                             <Table stickyHeader aria-label="sticky table">
@@ -249,7 +279,6 @@ export const StockPage = () => {
                             </Table>
                         </TableContainer>
 
-
                     </TabPanel>
 
                 </Grid>
@@ -257,33 +286,3 @@ export const StockPage = () => {
         </div >
     )
 }
-
-
-const options = {
-    width: 800,
-    height: 500,
-    layout: {
-        backgroundColor: '#2B2B43',
-        lineColor: '#2B2B43',
-        textColor: 'rgba(255, 255, 255, 0.9)',
-    },
-    grid: {
-        vertLines: {
-            color: 'rgba(197, 203, 206, 0.5)',
-        },
-        horzLines: {
-            color: 'rgba(197, 203, 206, 0.5)',
-        },
-    },
-    rightPriceScale: {
-        visible: true,
-        borderColor: 'rgba(197, 203, 206, 1)',
-        lockVisibleTimeRangeOnResize: true,
-    },
-    timeScale: {
-        borderColor: 'rgba(197, 203, 206, 1)',
-    },
-    crosshair: {
-        mode: CrosshairMode.Normal,
-    },
-};

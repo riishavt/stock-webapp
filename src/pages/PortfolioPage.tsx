@@ -17,6 +17,7 @@ interface PortfolioInterface {
     price: number;
     lastPrice: number;
     open: number;
+    totalProfit: number;
 }
 
 type userStorage = {
@@ -138,6 +139,9 @@ export const Portfolio = () => {
                                 <StyledTableCell >
                                     Daily Profit/Loss
                                 </StyledTableCell>
+                                <StyledTableCell >
+                                    Total Profit/Loss
+                                </StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -163,6 +167,17 @@ export const Portfolio = () => {
                                                         {(row.lastPrice - row.open).toFixed(2)}
                                                     </span>}
                                             </StyledTableCell>
+                                            <StyledTableCell key={row.ID}>
+                                                {row.totalProfit > 0
+                                                    ? <span style={{ color: 'green' }}>
+                                                        {row.totalProfit.toFixed(2)}
+                                                    </span>
+                                                    : <span style={{ color: 'red' }}>
+                                                        {row.totalProfit.toFixed(2)}
+                                                    </span>}
+                                            </StyledTableCell>
+
+
                                             <Button variant="outlined" color="primary" size="small" onClick={() => handleEditPortfolioItem(row.scrip,)}>
                                                 <EditRounded />
                                             </Button>
