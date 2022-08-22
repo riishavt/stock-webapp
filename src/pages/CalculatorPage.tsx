@@ -124,12 +124,12 @@ export default function CalculatorPage() {
                                         />
                                     </Grid>
                                 </Grid>
-                                <h4>Share Amount : Rs {cost?.shareAmount}</h4>
-                                <h4>Broker Commission : Rs {cost?.brokerCommission}</h4>
-                                <h4>SEBON Commission : Rs {cost?.sebonCommission}</h4>
-                                <h4>DP Fee : Rs {cost?.dpFee}</h4>
-                                <h4>Total Payable Amount : Rs {cost?.totalPayableAmount}</h4>
-                                <h4>Cost Price Per Share :Rs {cost?.costPricePerShare}</h4>
+                                <h4>Share Amount : Rs. {cost?.shareAmount}</h4>
+                                <h4>Broker Commission : Rs. {cost?.brokerCommission}</h4>
+                                <h4>SEBON Commission : Rs. {cost?.sebonCommission}</h4>
+                                <h4>DP Fee : Rs. {cost?.dpFee}</h4>
+                                <h4>Total Payable Amount : Rs. {cost?.totalPayableAmount}</h4>
+                                <h4>Cost Price Per Share :Rs. {cost?.costPricePerShare}</h4>
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -175,13 +175,13 @@ export default function CalculatorPage() {
                                         />
                                     </Grid>
                                 </Grid>
-                                <h4>Share Amount : Rs {profit?.shareAmount}</h4>
-                                <h4>Broker Commission : Rs {profit?.brokerCommission}</h4>
-                                <h4>SEBON Commission : Rs {profit?.sebonCommission}</h4>
-                                <h4>DP Fee : Rs {profit?.dpFee}</h4>
-                                <h4>Capital Gain : Rs {profit?.capitalGain}</h4>
-                                <h4>Capital Gain Tax : Rs {profit?.capitalGainTax}</h4>
-                                <h4>Total Receivable :Rs {profit?.ToatalReceivable}</h4>
+                                <h4>Share Amount : Rs. {profit?.shareAmount}</h4>
+                                <h4>Broker Commission : Rs. {profit?.brokerCommission}</h4>
+                                <h4>SEBON Commission : Rs. {profit?.sebonCommission}</h4>
+                                <h4>DP Fee : Rs. {profit?.dpFee}</h4>
+                                <h4>Capital Gain : Rs. {profit?.capitalGain}</h4>
+                                <h4>Capital Gain Tax : Rs. {profit?.capitalGainTax}</h4>
+                                <h4>Total Receivable :Rs. {profit?.ToatalReceivable}</h4>
                                 <Button
                                     type="submit"
                                     fullWidth

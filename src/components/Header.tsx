@@ -1,4 +1,4 @@
-import { Autocomplete, Button, createTheme, CssBaseline, Divider, IconButton, List, ListItemButton, ListItemIcon, ListItemText, styled, TextField, Toolbar, Typography } from '@mui/material';
+import { Autocomplete, Button, CssBaseline, Divider, IconButton, List, ListItemButton, ListItemIcon, ListItemText, styled, TextField, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -64,9 +64,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         },
     }),
 );
-
-const mdTheme = createTheme();
-
 
 
 export function Header() {
@@ -436,10 +433,10 @@ const stockNameData = [
         label: "USLB",
         value: 46
     },
-    {
-        label: "VLBS",
-        value: 47
-    },
+    // {
+    //     label: "VLBS",
+    //     value: 47
+    // },
     {
         label: "WNLB",
         value: 48
@@ -780,14 +777,14 @@ const stockNameData = [
         label: "UMHL",
         value: 132
     },
-    {
-        label: "UPCL",
-        value: 133
-    },
-    {
-        label: "UPPER",
-        value: 134
-    },
+    // {
+    //     label: "UPCL",
+    //     value: 133
+    // },
+    // {
+    //     label: "UPPER",
+    //     value: 134
+    // },
 
     {
         label: "ALICL",
@@ -1025,7 +1022,6 @@ const stockNameData = [
         label: "SINDU",
         value: 193
     },
-    //['KEF', 'LUK', 'NEF', 'NIBLPF']
     {
         label: "KEF",
         value: 194
@@ -1050,8 +1046,4 @@ const stockNameData = [
         label: "NRIC",
         value: 199
     }
-
-
-
 ];
-
