@@ -60,7 +60,7 @@ function GainerLoserCard() {
                         subheaderTypographyProps={{
                             align: 'center',
                         }}
-                        sx={{ backgroundColor: '#78909c' }}
+                        sx={{ backgroundColor: '#4D6C96' }}
                     />
                     <CardContent sx={{ backgroundColor: '#091929' }}>
                         {topGainers.map(gainer => (
@@ -85,7 +85,7 @@ function GainerLoserCard() {
                         subheaderTypographyProps={{
                             align: 'center',
                         }}
-                        sx={{ backgroundColor: '#78909c' }}
+                        sx={{ backgroundColor: '#4D6C96' }}
                     />
                     {!isLoserLoading ?
                         <CardContent sx={{ backgroundColor: '#091929' }}>

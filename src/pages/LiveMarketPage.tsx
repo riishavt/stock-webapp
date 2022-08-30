@@ -6,7 +6,7 @@ export default function LiveMarketPage() {
 
     return (
         <div>
-            <Container sx={{ padding: 2, display: 'flex', mt: '-365px', ml: '350px' }}>
+            <Container sx={{ padding: 2, display: 'flex', mt: '-300px', ml: '350px' }}>
                 <Stack>
                     <h1>Live Market</h1>
                     <LiveTable />

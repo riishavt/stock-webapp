@@ -1,10 +1,10 @@
-import { Button, Stack, Typography } from '@mui/material';
-import { Container } from '@mui/system';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { userSlice } from '../redux/features/userSlice';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { Button, Stack, Typography } from "@mui/material";
+import { Container } from "@mui/system";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { userSlice } from "../redux/features/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 interface UserDetails {
   id: number;
@@ -25,7 +25,7 @@ export default function ProfilePage() {
 
   const handleOnSignOut = () => {
     dispatch(userSlice.actions.logout());
-    navigate('/');
+    navigate("/");
   };
 
   useEffect(() => {
@@ -38,31 +38,34 @@ export default function ProfilePage() {
       {
         headers: {
           Authorization: `Bearer ${user?.token}`,
-        }
-      },
+        },
+      }
     );
     setUserData(userData.data);
     setIsLoading(false);
-
-  }
+  };
 
   return (
     <div>
-      <Container sx={{ padding: 2, display: 'flex', mt: '-365px', ml: '450px' }}>
-        <Stack spacing={2} alignItems='normal'>
-          {user && userData ?
+      <Container
+        sx={{ padding: 2, display: "flex", mt: "-300px", ml: "450px" }}
+      >
+        <Stack spacing={2} alignItems="normal">
+          {user && userData ? (
             <div>
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                 Username: {user.username}
               </Typography>
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                 Fullname: {userData.fullname}
               </Typography>
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                 {userData.email}
               </Typography>
             </div>
-            : <div>...Loading</div>}
+          ) : (
+            <div>...Loading</div>
+          )}
           <Button
             variant="contained"
             type="submit"
@@ -73,7 +76,6 @@ export default function ProfilePage() {
           </Button>
         </Stack>
       </Container>
-
     </div>
   );
 }

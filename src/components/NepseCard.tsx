@@ -80,7 +80,7 @@ export const NepseCard = () => {
                         title={'NEPSE'}
                         titleTypographyProps={{ align: 'center' }}
                         subheaderTypographyProps={{ align: 'center' }}
-                        sx={{ backgroundColor: '#78909c' }}
+                        sx={{ backgroundColor: '#4D6C96' }}
                     />
                     <CardContent sx={{ backgroundColor: '#091929' }}>
                         <Typography component="h4" variant="h5" color={nepseData.DailyGain > 0 ? "green" : "red"} align="center">
