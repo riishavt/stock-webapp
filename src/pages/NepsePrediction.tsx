@@ -1,7 +1,12 @@
+import React from "react";
 import {
   CircularProgress,
   Container,
   Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   Stack,
   styled,
   Tab,
@@ -17,17 +22,16 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../redux/hooks/search";
 import { CrosshairMode } from "lightweight-charts";
-import {
-  Chart,
-  CandlestickSeries,
-  HistogramSeries,
-  LineSeries,
-} from "lightweight-charts-react-wrapper";
+import { Chart, LineSeries } from "lightweight-charts-react-wrapper";
 import { formatDate } from "../utils/formatDate";
-import { GraphicEq, Details, History } from "@mui/icons-material";
-
+import {
+  GraphicEq,
+  Details,
+  History,
+  CircleRounded,
+  SquareRounded,
+} from "@mui/icons-material";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -137,6 +141,8 @@ export const NepsePrediction = () => {
   );
   const [gruPredictionLineData, setGruPredictionLineData] = useState<any[]>([]);
   const [originalLineData, setOriginalLineData] = useState<any[]>([]);
+
+  const [dense, setDense] = useState(false);
 
   const columns = [
     { id: "Time", label: "Time", minWidth: 150 },
@@ -312,26 +318,48 @@ export const NepsePrediction = () => {
           <TabPanel value={value} index={1}>
             {!isChartLoading ? (
               <div>
-                <Chart {...options}>
-                  <LineSeries
-                    data={lstmPredictionLineData}
-                    priceScaleId="right"
-                    color="rgba(4, 111, 232, 1)"
-                    lineWidth={2}
-                  />
-                  <LineSeries
-                    data={gruPredictionLineData}
-                    priceScaleId="right"
-                    color="rgba(56, 212, 26, 45)"
-                    lineWidth={2}
-                  />
-                  <LineSeries
-                    data={originalLineData}
-                    priceScaleId="right"
-                    color="rgba(56, 212, 232, 45)"
-                    lineWidth={2}
-                  />
-                </Chart>
+                <Stack direction={"row"}>
+                  <Chart {...options}>
+                    <LineSeries
+                      data={lstmPredictionLineData}
+                      priceScaleId="right"
+                      color="#046fe8"
+                      lineWidth={2}
+                    />
+                    <LineSeries
+                      data={gruPredictionLineData}
+                      priceScaleId="right"
+                      color="#38d41a"
+                      lineWidth={2}
+                    />
+                    <LineSeries
+                      data={originalLineData}
+                      priceScaleId="right"
+                      color="#38d4e8"
+                      lineWidth={2}
+                    />
+                  </Chart>
+                  <List dense={dense}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <SquareRounded htmlColor="#38d4e8" />
+                      </ListItemIcon>
+                      <ListItemText primary="Original Close Price" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <SquareRounded htmlColor="#046fe8" />
+                      </ListItemIcon>
+                      <ListItemText primary="LSTM Prediction" />
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <SquareRounded htmlColor="#38d41a" />
+                      </ListItemIcon>
+                      <ListItemText primary="GRU Prediction" />
+                    </ListItem>
+                  </List>
+                </Stack>
               </div>
             ) : (
               <CircularProgress />

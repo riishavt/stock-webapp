@@ -1,7 +1,43 @@
-import { Container, Grid, Stack } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Stack,
+  styled,
+  Tab,
+  Table,
+  TableBody,
+  TableCell,
+  tableCellClasses,
+  TableRow,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NewsInterface } from "../utils/newsType";
+
+const StyledTableCellCompany = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#78909c",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    backgroundColor: "#78909c",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+  },
+}));
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#78909c",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "black",
+  },
+}));
 
 export default function NewsPage() {
   const [news, setNews] = useState<NewsInterface>();
@@ -26,16 +62,24 @@ export default function NewsPage() {
         sx={{ padding: 2, display: "flex", mt: "-300px", ml: "350px" }}
       >
         <Stack direction="column">
-          <h1>HighLights</h1>
+          <Container sx={{ ml: 40 }}>
+            <TableBody>
+              <StyledTableCell align="center">Highlights</StyledTableCell>
+            </TableBody>
+          </Container>
           <Grid>
             {news &&
               news?.featured_news?.map((item: any) => {
                 return (
-                  <ul>
-                    <li>
-                      <h3>{item.title}</h3>
-                    </li>
-                  </ul>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <StyledTableCellCompany>
+                          {item.title}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 );
               })}
           </Grid>
@@ -43,11 +87,15 @@ export default function NewsPage() {
             {news &&
               news?.stock_analysis?.map((item: any) => {
                 return (
-                  <ul>
-                    <li>
-                      <h3>{item.title}</h3>
-                    </li>
-                  </ul>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <StyledTableCellCompany>
+                          {item.title}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 );
               })}
           </Grid>
@@ -55,11 +103,63 @@ export default function NewsPage() {
             {news &&
               news?.highlights_news?.map((item: any) => {
                 return (
-                  <ul>
-                    <li>
-                      <h3>{item.title}</h3>
-                    </li>
-                  </ul>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <StyledTableCellCompany>
+                          {item.title}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                );
+              })}
+          </Grid>
+          <Grid>
+            {news &&
+              news?.investing_ideas?.map((item: any) => {
+                return (
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <StyledTableCellCompany>
+                          {item.title}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                );
+              })}
+          </Grid>
+          <Grid>
+            {news &&
+              news?.weekly_market_analysis?.map((item: any) => {
+                return (
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <StyledTableCellCompany>
+                          {item.title}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                );
+              })}
+          </Grid>
+          <Grid>
+            {news &&
+              news?.articles?.map((item: any) => {
+                return (
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <StyledTableCellCompany>
+                          {item.title}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 );
               })}
           </Grid>

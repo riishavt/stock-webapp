@@ -2,6 +2,10 @@ import {
   CircularProgress,
   Container,
   Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   Stack,
   styled,
   Tab,
@@ -26,7 +30,12 @@ import {
   LineSeries,
 } from "lightweight-charts-react-wrapper";
 import { formatDate } from "../utils/formatDate";
-import { GraphicEq, Details, History } from "@mui/icons-material";
+import {
+  GraphicEq,
+  Details,
+  History,
+  SquareRounded,
+} from "@mui/icons-material";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -218,10 +227,10 @@ export const StockPage = () => {
 
   const columns = [
     { id: "Time", label: "Time", minWidth: 150 },
-    { id: "Close", label: "Close", minWidth: 150 },
-    { id: "Open", label: "Open", minWidth: 150 },
-    { id: "High", label: "High", minWidth: 150 },
-    { id: "Low", label: "Low", minWidth: 150 },
+    { id: "Close", label: "Close(Rs)", minWidth: 150 },
+    { id: "Open", label: "Open(Rs)", minWidth: 150 },
+    { id: "High", label: "High(Rs)", minWidth: 150 },
+    { id: "Low", label: "Low(Rs)", minWidth: 150 },
     { id: "Volume", label: "Volume", minWidth: 150 },
   ];
 
@@ -366,10 +375,20 @@ export const StockPage = () => {
                     />
                   </Chart>
                   <Stack>
-                    <Typography variant="h5" sx={{ ml: 30 }}>
-                      Prediction
-                    </Typography>
-
+                    <Stack direction="row">
+                      <ListItem>
+                        <ListItemIcon>
+                          <SquareRounded htmlColor="#38d4e8" />
+                        </ListItemIcon>
+                        <ListItemText primary="Original Close Price" />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemIcon>
+                          <SquareRounded htmlColor="#046fe8" />
+                        </ListItemIcon>
+                        <ListItemText primary="LSTM Prediction" />
+                      </ListItem>
+                    </Stack>
                     <Chart {...lineOptions}>
                       <LineSeries
                         data={predictionLineData}
@@ -406,7 +425,7 @@ export const StockPage = () => {
                       <TableRow>
                         {tomorrowPredictedValue ? (
                           <StyledTableCellCompany align="center">
-                            Tomorrow's Prediction :
+                            Tomorrow's Prediction : Rs{" "}
                             {tomorrowPredictedValue[0].Prediction.toFixed(2)}
                           </StyledTableCellCompany>
                         ) : (
@@ -422,7 +441,7 @@ export const StockPage = () => {
                       </TableRow>
                       <TableRow>
                         <StyledTableCellCompany align="center">
-                          MarketPrice : {stockData.MarketPrice}
+                          MarketPrice : Rs {stockData.MarketPrice}
                         </StyledTableCellCompany>
                       </TableRow>
                       <TableRow>
@@ -432,7 +451,7 @@ export const StockPage = () => {
                       </TableRow>
                       <TableRow>
                         <StyledTableCellCompany align="center">
-                          BookValue : {stockData.BookValue}
+                          BookValue : Rs {stockData.BookValue}
                         </StyledTableCellCompany>
                       </TableRow>
                       <TableRow>

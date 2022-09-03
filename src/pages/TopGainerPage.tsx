@@ -116,7 +116,7 @@ export const TopGainersLosers = () => {
                     <StyledGainerTableCell
                       style={{ fontWeight: "bold", fontSize: "16px" }}
                     >
-                      LTP
+                      LTP(Rs)
                     </StyledGainerTableCell>
                     <StyledGainerTableCell
                       style={{ fontWeight: "bold", fontSize: "16px" }}
@@ -169,7 +169,7 @@ export const TopGainersLosers = () => {
                     <StyledLoserTableCell
                       style={{ fontWeight: "bold", fontSize: "16px" }}
                     >
-                      LTP
+                      LTP(Rs)
                     </StyledLoserTableCell>
                     <StyledLoserTableCell
                       style={{ fontWeight: "bold", fontSize: "16px" }}

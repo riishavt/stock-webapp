@@ -97,9 +97,9 @@ export const Portfolio = () => {
     // { id: "username", label: "username", minWidth: 100 },
     { id: "scrip", label: "Scrip", minWidth: 100 },
     { id: "total", label: "Total", minWidth: 100 },
-    { id: "price", label: "Price", minWidth: 100 },
-    { id: "lastPrice", label: "LTP", minWidth: 100 },
-    { id: "open", label: "Open", minWidth: 100 },
+    { id: "price", label: "Price(Rs)", minWidth: 100 },
+    { id: "lastPrice", label: "LTP(Rs)", minWidth: 100 },
+    { id: "open", label: "Open(Rs)", minWidth: 100 },
   ];
   const handleChange = (e: any) => {
     e.preventDefault();
@@ -176,8 +176,8 @@ export const Portfolio = () => {
                       {column.label}
                     </StyledTableCell>
                   ))}
-                  <StyledTableCell>Daily Profit/Loss</StyledTableCell>
-                  <StyledTableCell>Total Profit/Loss</StyledTableCell>
+                  <StyledTableCell>Daily Profit/Loss(Rs)</StyledTableCell>
+                  <StyledTableCell>Total Profit/Loss(Rs)</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
