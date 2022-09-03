@@ -257,7 +257,7 @@ const mainListItems = (
         <ListItemIcon>
           <PieChartOutline />
         </ListItemIcon>
-        <ListItemText primary="Gainer" />
+        <ListItemText primary="Gainer / Loser" />
       </ListItemButton>
     </Link>
     <Link to="/news">

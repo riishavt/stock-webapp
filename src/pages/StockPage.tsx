@@ -270,11 +270,11 @@ export const StockPage = () => {
           return {
             // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
             Time: formatDate(item.Time),
-            Open: item.Open,
-            High: item.High,
-            Low: item.Low,
-            Close: item.Close,
-            Volume: item.Volume,
+            Open: item.Open.toFixed(2),
+            High: item.High.toFixed(2),
+            Low: item.Low.toFixed(2),
+            Close: item.Close.toFixed(2),
+            Volume: item.Volume.toFixed(2),
           };
         })
       );
