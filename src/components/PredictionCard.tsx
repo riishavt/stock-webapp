@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
 
 interface PredictionInterface {
@@ -25,6 +26,7 @@ interface PredictionInterface {
 export const PredictionCard = () => {
   const [nepseData, setNepseData] = useState<PredictionInterface>({});
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -46,10 +48,19 @@ export const PredictionCard = () => {
     }
   };
 
+  function handleClick() {
+    navigate("/nepsePrediction");
+  }
+
   return (
     <div>
       {!isLoading ? (
-        <Card variant="elevation" raised sx={{ ml: -15, minWidth: "180px" }}>
+        <Card
+          variant="elevation"
+          raised
+          sx={{ ml: -15, minWidth: "180px" }}
+          onClick={handleClick}
+        >
           <CardHeader
             title={"Prediction"}
             titleTypographyProps={{ align: "center" }}

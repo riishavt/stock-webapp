@@ -14,6 +14,7 @@ import { TopGainersLosers } from "./pages/TopGainerPage";
 import CalculatorPage from "./pages/CalculatorPage";
 import LiveMarketPage from "./pages/LiveMarketPage";
 import NewsPage from "./pages/NewsPage";
+import { NepsePrediction } from "./pages/NepsePrediction";
 
 const darkTheme = createTheme({
   palette: {
@@ -46,6 +47,7 @@ export default function App() {
             <Route index element={<HomePage />} />
             <Route path="/stock" element={<StockPage />} />
             <Route path="/live" element={<LiveMarketPage />} />
+            <Route path="/nepsePrediction" element={<NepsePrediction />} />
             <Route path="/calculator" element={<CalculatorPage />} />
             <Route path="/gainer" element={<TopGainersLosers />} />
             <Route path="/news" element={<NewsPage />} />
