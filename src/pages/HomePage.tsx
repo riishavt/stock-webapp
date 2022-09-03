@@ -3,6 +3,7 @@ import { ChartItem } from "../components/ChartItem";
 import GainerLoserCard from "../components/GainerLoserCard";
 import { IndexTable } from "../components/IndexTable";
 import { NepseCard } from "../components/NepseCard";
+import { PredictionCard } from "../components/PredictionCard";
 
 export default function HomePage() {
   return (
@@ -19,11 +20,7 @@ export default function HomePage() {
           >
             <NepseCard />
             <GainerLoserCard />
-            <Card variant="outlined">
-              <Typography variant="h5" component="div">
-                Prediction
-              </Typography>
-            </Card>
+            <PredictionCard />
           </Stack>
         </Grid>
         <Grid item xs={12}>

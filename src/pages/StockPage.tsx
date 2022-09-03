@@ -60,6 +60,19 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const StyledTableCellCompany = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#78909c",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    backgroundColor: "#78909c",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+  },
+}));
+
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     // backgroundColor: '#3F4E4F',
@@ -195,7 +208,7 @@ export const StockPage = () => {
   const [historicTableData, setHistoricTableData] = useState<NepseHistory[]>(
     []
   );
-  const [tomorrowPredictedValue, setTomorrowPredictedValue] = useState();
+  const [tomorrowPredictedValue, setTomorrowPredictedValue] = useState<any>();
   const [historicTablePredictionData, setHistoricTablePredictionData] =
     useState<NepsePredictionHistory[]>([]);
   const [volumeData, setVolumeData] = useState<any[]>([]);
@@ -383,24 +396,67 @@ export const StockPage = () => {
             <Grid item xs={8}>
               {!isLoading ? (
                 <div>
-                  <h1>Name : {stockData.Name}</h1>
-                  {tomorrowPredictedValue ? (
-                    <h1>
-                      Tomorrow's Prediction :
-                      {tomorrowPredictedValue[0]!.Prediction}
-                    </h1>
-                  ) : (
-                    <h1>Tomorrow's Prediction : 0</h1>
-                  )}
-
-                  <h1>Sector : {stockData.Sector}</h1>
-                  <h1>MarketPrice : {stockData.MarketPrice}</h1>
-                  <h1>% Change : {stockData.PercentChange}</h1>
-                  <h1>BookValue : {stockData.BookValue}</h1>
-                  <h1>PERatio : {stockData.PeRatio}</h1>
-                  <h1>DividendYield : {stockData.OneYearYield}</h1>
-                  <h1>EPS : {stockData.Eps}</h1>
-                  <h1>Price To Book Value : {stockData.Pbv}</h1>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          Name : {stockData.Name}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                      <TableRow>
+                        {tomorrowPredictedValue ? (
+                          <StyledTableCellCompany align="center">
+                            Tomorrow's Prediction :
+                            {tomorrowPredictedValue[0].Prediction.toFixed(2)}
+                          </StyledTableCellCompany>
+                        ) : (
+                          <StyledTableCellCompany align="center">
+                            Tomorrow's Prediction : 0
+                          </StyledTableCellCompany>
+                        )}
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          Sector : {stockData.Sector}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          MarketPrice : {stockData.MarketPrice}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          % Change : {stockData.PercentChange}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          BookValue : {stockData.BookValue}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          PERatio : {stockData.PeRatio}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          DividendYield : {stockData.OneYearYield}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          EPS : {stockData.Eps}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCellCompany align="center">
+                          Price To Book Value : {stockData.Pbv}
+                        </StyledTableCellCompany>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 </div>
               ) : (
                 <CircularProgress />

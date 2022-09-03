@@ -3,6 +3,9 @@ import {
   Button,
   Container,
   Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
   DialogTitle,
   Stack,
   styled,
@@ -14,6 +17,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import React from "react";
@@ -251,14 +255,38 @@ export const Portfolio = () => {
                         size="small"
                         sx={{ backgroundColor: "whitesmoke" }}
                         onClick={() => {
-                          handleDeletePortfolioItem(
-                            currentUser?.username,
-                            row.scrip
-                          );
+                          handleClickOpen();
                         }}
                       >
                         <DeleteOutlined />
                       </Button>
+                      <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                      >
+                        <DialogTitle id="alert-dialog-title">
+                          {"Are you sure you want to delete ?"}
+                        </DialogTitle>
+                        <DialogActions>
+                          <Button onClick={handleClose}>No</Button>
+                          <Button
+                            onClick={() => {
+                              handleClose;
+                              handleDeletePortfolioItem(
+                                currentUser?.username,
+                                row.scrip
+                              );
+                            }}
+                            autoFocus
+                          >
+                            <Typography color={"red"} fontWeight={"bold"}>
+                              Yes
+                            </Typography>
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
                     </StyledTableRow>
                   );
                 })}
@@ -267,28 +295,6 @@ export const Portfolio = () => {
           </TableContainer>
           <AddPortfolioItem />
         </Stack>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Use Google's location service?"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
-            <Button onClick={handleClose} autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
-        </Dialog>
       </Container>
     </div>
   );

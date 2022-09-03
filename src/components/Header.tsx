@@ -8,6 +8,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
   styled,
   TextField,
   Toolbar,
@@ -28,6 +29,7 @@ import LayersIcon from "@mui/icons-material/Layers";
 import styles from "./Header.module.css";
 import React from "react";
 import {
+  AccountCircle,
   Calculate,
   Moving,
   Newspaper,
@@ -179,9 +181,12 @@ export function Header() {
             </Button>
             <Button variant="contained" color="info">
               <Link to="/signin" className={styles.signin}>
-                <Typography variant="h6" color="inherit">
-                  {user ? user.username : "Sign in"}
-                </Typography>
+                <Stack direction={"row"}>
+                  <AccountCircle />
+                  <Typography variant="h5" color="inherit" sx={{ ml: 2 }}>
+                    {user ? user.username : "Sign in"}
+                  </Typography>
+                </Stack>
               </Link>
             </Button>
           </Toolbar>
