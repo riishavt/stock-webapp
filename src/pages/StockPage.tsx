@@ -297,9 +297,9 @@ export const StockPage = () => {
       `http://localhost:8080/api/nepseHistoryPrediction/${scrip}`
     );
     if (response.status === 200) {
-      setTomorrowPredictedValue(response.data.splice(-1));
+      setTomorrowPredictedValue(response.data.splice(-7));
       setOriginalLineData(
-        response.data.slice(0, -1).map((item: any) => {
+        response.data.slice(0, -8).map((item: any) => {
           return {
             // {time: {year: 2018, month: 9, day: 22}, value: 25.531816900940186},
             // {time: {year: 2018, month: 9, day: 23}, value: 26.350850429478125},
@@ -309,7 +309,7 @@ export const StockPage = () => {
         })
       );
       setPredictionLineData(
-        response.data.map((item: any) => {
+        response.data.slice(0, -4).map((item: any) => {
           return {
             // {time: {year: 2018, month: 9, day: 22}, value: 25.531816900940186},
             // {time: {year: 2018, month: 9, day: 23}, value: 26.350850429478125},
