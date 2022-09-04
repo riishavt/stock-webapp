@@ -48,6 +48,8 @@ export const PredictionCard = () => {
     }
   };
 
+  const date = new Date();
+
   function handleClick() {
     navigate("/nepsePrediction");
   }
@@ -83,7 +85,7 @@ export const PredictionCard = () => {
                 align="center"
                 color={"green"}
               >
-                : {nepseData.LstmPrediction}
+                : {Number(nepseData.LstmPrediction).toFixed(2)}
               </Typography>
             </Stack>
             <Stack direction="row">
@@ -101,7 +103,7 @@ export const PredictionCard = () => {
                 align="center"
                 color={"green"}
               >
-                : {nepseData.GruPrediction}
+                : {Number(nepseData.GruPrediction).toFixed(2)}
               </Typography>
             </Stack>
             <Typography
@@ -120,7 +122,8 @@ export const PredictionCard = () => {
               align="center"
               color={"red"}
             >
-              {formatDate(nepseData?.Time)}
+              {date.toLocaleDateString()}
+              {/* {formatDate(nepseData?.Time)} */}
             </Typography>
           </CardContent>
         </Card>

@@ -199,7 +199,7 @@ export const NepsePrediction = () => {
         })
       );
       setOriginalLineData(
-        response.data.slice(0, -1).map((item: any) => {
+        response.data.slice(0, -8).map((item: any) => {
           return {
             // {time: {year: 2018, month: 9, day: 22}, value: 25.531816900940186},
             // {time: {year: 2018, month: 9, day: 23}, value: 26.350850429478125},
@@ -209,7 +209,7 @@ export const NepsePrediction = () => {
         })
       );
       setLstmPredictionLineData(
-        response.data.map((item: any) => {
+        response.data.slice(0, -4).map((item: any) => {
           return {
             // {time: {year: 2018, month: 9, day: 22}, value: 25.531816900940186},
             // {time: {year: 2018, month: 9, day: 23}, value: 26.350850429478125},
@@ -219,7 +219,7 @@ export const NepsePrediction = () => {
         })
       );
       setGruPredictionLineData(
-        response.data.map((item: any) => {
+        response.data.slice(0, -4).map((item: any) => {
           return {
             // {time: {year: 2018, month: 9, day: 22}, value: 25.531816900940186},
             // {time: {year: 2018, month: 9, day: 23}, value: 26.350850429478125},
