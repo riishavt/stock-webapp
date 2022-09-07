@@ -275,7 +275,7 @@ export const StockPage = () => {
         })
       );
       setHistoricTableData(
-        response.data.map((item: any) => {
+        response.data.reverse().map((item: any) => {
           return {
             // { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
             Time: formatDate(item.Time),
